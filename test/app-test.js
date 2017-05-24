@@ -36,7 +36,7 @@ function tearDownDb() {
 describe('ClientInfo API resource', function() {
 
   before(function() {
-    return runServer('mongodb://localhost/thevideoshelfdbtest');
+    return runServer(TEST_DATABASE_URL);
   });
 
   beforeEach(function() {
