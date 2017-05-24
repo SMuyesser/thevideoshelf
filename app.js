@@ -1,16 +1,22 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const cookieParser = require('cookie-parser');
 const mongoose = require('mongoose');
 const morgan = require('morgan');
+const path = require('path');
 
 const {DATABASE_URL, PORT} = require('./config');
-
-const Client = require('./models/clientmodel');
+const clients = require('./routes/api')
 
 const app = express();
 
 app.use(morgan('common'));
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(cookieParser());
+app.use(express.static(path.join(__dirname, 'public')));
+
+app.use('/', clients);
 
 mongoose.Promise = global.Promise;
 
@@ -58,64 +64,7 @@ function closeServer() {
 /*mongoose.connect(DATABASE_URL);
 var db = mongoose.connection;*/
 
-//Routes will be moved later to folder
-app.get('/', function(req, res) {
-	res.send('Please use /api/clients');
-});
 
-// Get Clients
-app.get('/api/clients', function(req, res) {
-	Client.getClients(function(err, clients) {
-		if(err) {
-			throw err;
-		}
-		res.json(clients);
-	});
-});
-
-// Get Client by Id
-app.get('/api/clients/:_id', function(req, res) {
-	Client.getClientsById(req.params._id, function(err, client) {
-		if(err) {
-			throw err;
-		}
-		res.json(client);
-	});
-});
-
-// Add new Client
-app.post('/api/clients', function(req, res) {
-	const client = req.body;
-	Client.addClient(client, function(err, client) {
-		if(err) {
-			throw err;
-		}
-		res.json(client);
-	});
-});
-
-// Update a Client
-app.put('/api/clients/:_id', function(req, res) {
-	const id = req.params._id;
-	const client = req.body;
-	Client.updateClient(id, client, {}, function(err, client) {
-		if(err) {
-			throw err;
-		}
-		res.json(client);
-	});
-});
-
-// Delete a client
-app.delete('/api/clients/:_id', function(req, res) {
-	const id = req.params._id;
-	Client.removeClient(id, function(err, client) {
-		if(err) {
-			throw err;
-		}
-		res.json(client);
- 	});
-});
 
 /*app.listen(3000);
 console.log('Running on port 3000...');*/
@@ -124,7 +73,7 @@ app.use('*', function(req, res) {
   res.status(404).json({message: 'Not Found'});
 });
 
-// if server.js is called directly (aka, with `node server.js`), this block
+// if app.js is called directly (aka, with `node app.js`), this block
 // runs. but we also export the runServer command so other code (for instance, test code) can start the server as needed.
 if (require.main === module) {
   runServer().catch(err => console.error(err));

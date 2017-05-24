@@ -1,5 +1,5 @@
-$('#btn-signup-submit').on('click', addClient);
-module.exports.newClient = function(event) {
+$('#btn-signup-submit').on('click', newClient);
+function newClient(event) {
     event.preventDefault();
 
     // Super basic validation - increase errorCount variable if any fields are blank
@@ -19,5 +19,11 @@ module.exports.newClient = function(event) {
 		    'instagram':$('form.form-signup #instagram').val(),
 		    'twitter': $('form.form-signup #twitter').val()
 		}
-    return newFormClient;
+        $.ajax({
+            type: 'POST',
+            data: JSON.stringify(newFormClient),
+            url: '/api/clients',
+            contentType: 'application/json; charset=utf-8'
+        })
+    }
 };
