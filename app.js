@@ -3,7 +3,7 @@ const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const morgan = require('morgan');
 
-const {DATABASE_URL, PORT} = require('./config.js');
+const {DATABASE_URL, PORT} = require('./config');
 
 const Client = require('./models/clientmodel');
 

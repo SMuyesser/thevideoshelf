@@ -6,7 +6,7 @@ const mongoose = require('mongoose');
 const should = chai.should();
 
 const Client = require('./../models/clientmodel');
-const TEST_DATABASE_URL = require('./../config.js');
+const TEST_DATABASE_URL = require('./../config');
 const {app, runServer, closeServer} = require('./../app');
 
 chai.use(chaiHttp);
