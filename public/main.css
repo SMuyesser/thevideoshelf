@@ -1,0 +1,21 @@
+body {
+	box-sizing: border-box;
+}
+
+div.container {
+	width: 50%;
+	margin: auto;
+	margin-top: 100px;
+	background-color: #001385;
+	color: white;
+	padding: 10px;
+}
+
+.form-signup input {
+	margin-top: 5px;
+	margin-bottom: 5px;
+}
+
+.form-signup-heading {
+	text-align: center;
+}
