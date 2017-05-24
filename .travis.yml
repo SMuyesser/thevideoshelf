@@ -7,3 +7,4 @@ deploy:
   app: intense-reef-15875
   on:
     repo: SMuyesser/thevideoshelf
+before_script: chmod 0777 ./node_modules/.bin/mocha
