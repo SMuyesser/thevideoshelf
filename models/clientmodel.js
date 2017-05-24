@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const newClient = require('./../public/client');
 
 // ClientInfo Schema
 const clientSchema = mongoose.Schema({
@@ -25,8 +26,8 @@ module.exports.getClientsById = function(id, callback) {
 }
 
 // Add Client
-module.exports.addClient = function(client, callback) {
-	Client.create(client, callback);
+module.exports.addClient = function(newClient, callback) {
+	Client.create(newClient, callback);
 }
 
 // Update Client
