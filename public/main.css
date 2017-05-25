@@ -1,3 +1,7 @@
+/*****************************************************
+	GENERAL
+*****************************************************/
+
 body {
 	box-sizing: border-box;
 }
@@ -11,6 +15,34 @@ div.container {
 	padding: 10px;
 }
 
+
+
+/*****************************************************
+	INDEX
+*****************************************************/
+
+#header h1 {
+	text-align: center;
+}
+
+div.index-btns a {
+	text-decoration: none;
+}
+
+div.index-btns a button {
+	margin-bottom: 5px;
+}
+
+div.index-btns p {
+	text-align: center;
+}
+
+
+
+/*****************************************************
+	SIGNUP PAGE
+*****************************************************/
+
 .form-signup input {
 	margin-top: 5px;
 	margin-bottom: 5px;
@@ -19,3 +51,5 @@ div.container {
 .form-signup-heading {
 	text-align: center;
 }
+
+
