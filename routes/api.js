@@ -4,7 +4,7 @@ const bodyParser = require('body-parser');
 const jsonParser = bodyParser.json();
 var mongoose = require('mongoose');
 
-const Client = require('./../models/clientmodel');
+const Client = require('../models/clientmodel');
 
 mongoose.Promise = global.Promise;
 
