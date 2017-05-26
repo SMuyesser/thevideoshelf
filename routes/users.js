@@ -1,19 +1,21 @@
 const express = require('express');
 const router = express.Router();
+const passport = require('passport');
+const LocalStrategy = require('passport-local').Strategy;
 
 const User = require('../models/userschema')
 
-// Register
+// Render Register
 router.get('/register', function(req, res){
 	res.render('register');
 });
 
-// Login
+// Render Login
 router.get('/login', function(req, res){
 	res.render('login');
 });
 
-// Register User
+// Register New User
 router.post('/register', function(req, res) {
 	const name = req.body.name;
 	const email = req.body.email;
@@ -31,6 +33,7 @@ router.post('/register', function(req, res) {
 
 	const errors = req.validationErrors();
 
+	// If there are errors, render the form with errors, otherwise create new user, with success msg, and go to login page
 	if(errors){
 		res.render('register', {
 			errors: errors
@@ -43,6 +46,7 @@ router.post('/register', function(req, res) {
 			password: password
 		})
 
+		// Creates mongoose new user and logs it and success message and redirect to login
 		User.createUser(newUser, function(err, user){
 			if(err) throw err;
 			console.log(user);
@@ -54,78 +58,52 @@ router.post('/register', function(req, res) {
 	}
 });
 
+// Gets username, matches what you put in, finds what you put in, validates password
+passport.use(new LocalStrategy(
+  	function(username, password, done) {
+  		// Check if there is a user match
+  		User.getUserByUsername(username, function(err, user){
+  			if(err) throw err;
+  			if(!user){
+  				return done(null, false, {message: 'Unknown User'});
+  			}
+
+  			// If there is a match, continue to code below
+  			User.comparePassword(password, user.password, function(err, isMatch){
+  				if(err) throw err;
+  				if(isMatch){
+  					return done(null, user);
+  				} else {
+  					return done(null, false, {message: 'Invalid password'});
+  				}
+  			});
+  		});
+	}
+));
+
+passport.serializeUser(function(user, done) {
+	done(null, user.id);
+});
+
+passport.deserializeUser(function(id, done) {
+	User.getUserById(id, function(err, user) {
+		done(err, user);
+	});
+});
+
+// Redirects for successful or failing authentication of post request to login
+router.post('/login', 
+	passport.authenticate('local', {successRedirect:'/', failureRedirect: '/users/login', failureFlash: true}),
+	function(req, res) {
+		res.redirect('/');
+	});
+
+router.get('/logout', function(req, res){
+	req.logout();
+
+	req.flash('success_msg', 'You are logged out');
+
+	res.redirect('/users/login');
+});
+
 module.exports = router;
-
-
-
-/*const express = require('express');
-const router = express.Router();
-const bodyParser = require('body-parser');
-const jsonParser = bodyParser.json();
-var mongoose = require('mongoose');
-
-const Client = require('../models/clientmodel');
-
-mongoose.Promise = global.Promise;
-
-
-//Routes will be moved later to folder
-router.get('/', function(req, res) {
-	res.send('Please use /api/clients');
-});
-
-// Get Clients
-router.get('/users/clients', function(req, res) {
-	Client.getClients(function(err, clients) {
-		if(err) {
-			throw err;
-		}
-		res.json(clients);
-	});
-});
-
-// Get Client by Id
-router.get('/users/clients/:_id', function(req, res) {
-	Client.getClientsById(req.params._id, function(err, client) {
-		if(err) {
-			throw err;
-		}
-		res.json(client);
-	});
-});
-
-// Add new Client
-router.post('/users/clients', function(req, res) {
-	const client = req.body;
-	Client.addClient(client, function(err, client) {
-		if(err) {
-			throw err;
-		}
-		res.json(client);
-	});
-});
-
-// Update a Client
-router.put('/users/clients/:_id', function(req, res) {
-	const id = req.params._id;
-	const client = req.body;
-	Client.updateClient(id, client, {}, function(err, client) {
-		if(err) {
-			throw err;
-		}
-		res.json(client);
-	});
-});
-
-// Delete a client
-router.delete('/users/clients/:_id', function(req, res) {
-	const id = req.params._id;
-	Client.removeClient(id, function(err, client) {
-		if(err) {
-			throw err;
-		}
-		res.json(client);
- 	});
-});
-
-module.exports = router;*/

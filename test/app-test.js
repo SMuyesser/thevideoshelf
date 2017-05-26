@@ -5,24 +5,25 @@ const mongoose = require('mongoose');
 
 const should = chai.should();
 
-const Client = require('../models/clientmodel');
+const User = require('../models/userschema');
 const {TEST_DATABASE_URL} = require('../config');
 const {runServer, app, closeServer} = require('../app');
 
 chai.use(chaiHttp);
 
-function seedClientData() {
+function seedUserData() {
   console.info('seeding client info');
   const seedData = [];
   for (let i=1; i<=10; i++) {
-    seedData.push(generateClientInfo());
+    seedData.push(generateUserInfo());
   }
-  return Client.insertMany(seedData);
+  return User.insertMany(seedData);
 }
 
-function generateClientInfo() {
+function generateUserInfo() {
   return {
     name: faker.name.firstName(),
+    username: faker.name.lastName(),
     email: faker.name.firstName(),
     password: faker.name.lastName()
   }
@@ -33,14 +34,14 @@ function tearDownDb() {
     return mongoose.connection.dropDatabase();
 }
 
-describe('ClientInfo API resource', function() {
+describe('User Info API resource', function() {
 
   before(function() {
     return runServer(TEST_DATABASE_URL);
   });
 
   beforeEach(function() {
-    return seedClientData();
+    return seedUserData();
   });
 
   afterEach(function() {
@@ -56,7 +57,7 @@ describe('ClientInfo API resource', function() {
     it('should return all existing clients', function() {
       let res;
       return chai.request(app)
-        .get('/api/clients')
+        .get('/login')
         .then(function(_res) {
           res = _res;
           res.should.have.status(200);
