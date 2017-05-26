@@ -1,7 +1,5 @@
 // Submit Signup form to post to database
 $('#btn-signup-submit').on('click', newClient);
-
-
 function newClient(event, callback) {
     event.preventDefault();
 
@@ -33,7 +31,7 @@ function newClient(event, callback) {
         $.ajax({
             type: 'POST',
             data: JSON.stringify(newFormClient),
-            url: '/api/clients',
+            url: '/clients',
             contentType: 'application/json; charset=utf-8'
         })
     }
@@ -41,3 +39,5 @@ function newClient(event, callback) {
         $('form.form-signup input') === '';
     }*/
 };
+
+

@@ -1,5 +1,22 @@
 const express = require('express');
 const router = express.Router();
+
+// Register
+router.get('/register', function(req, res){
+	res.render('register');
+});
+
+// Login
+router.get('/login', function(req, res){
+	res.render('login');
+});
+
+module.exports = router;
+
+
+
+/*const express = require('express');
+const router = express.Router();
 const bodyParser = require('body-parser');
 const jsonParser = bodyParser.json();
 var mongoose = require('mongoose');
@@ -15,7 +32,7 @@ router.get('/', function(req, res) {
 });
 
 // Get Clients
-router.get('/api/clients', function(req, res) {
+router.get('/users/clients', function(req, res) {
 	Client.getClients(function(err, clients) {
 		if(err) {
 			throw err;
@@ -25,7 +42,7 @@ router.get('/api/clients', function(req, res) {
 });
 
 // Get Client by Id
-router.get('/api/clients/:_id', function(req, res) {
+router.get('/users/clients/:_id', function(req, res) {
 	Client.getClientsById(req.params._id, function(err, client) {
 		if(err) {
 			throw err;
@@ -35,7 +52,7 @@ router.get('/api/clients/:_id', function(req, res) {
 });
 
 // Add new Client
-router.post('/api/clients', function(req, res) {
+router.post('/users/clients', function(req, res) {
 	const client = req.body;
 	Client.addClient(client, function(err, client) {
 		if(err) {
@@ -46,7 +63,7 @@ router.post('/api/clients', function(req, res) {
 });
 
 // Update a Client
-router.put('/api/clients/:_id', function(req, res) {
+router.put('/users/clients/:_id', function(req, res) {
 	const id = req.params._id;
 	const client = req.body;
 	Client.updateClient(id, client, {}, function(err, client) {
@@ -58,7 +75,7 @@ router.put('/api/clients/:_id', function(req, res) {
 });
 
 // Delete a client
-router.delete('/api/clients/:_id', function(req, res) {
+router.delete('/users/clients/:_id', function(req, res) {
 	const id = req.params._id;
 	Client.removeClient(id, function(err, client) {
 		if(err) {
@@ -68,4 +85,4 @@ router.delete('/api/clients/:_id', function(req, res) {
  	});
 });
 
-module.exports = router;
+module.exports = router;*/
