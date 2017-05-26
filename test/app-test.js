@@ -57,7 +57,7 @@ describe('User Info API resource', function() {
     it('should return all existing users', function() {
       let res;
       return chai.request(app)
-        .get('/register')
+        .get('/users/register')
         .then(function(_res) {
           res = _res;
           res.should.have.status(200);
@@ -74,7 +74,7 @@ describe('User Info API resource', function() {
 
       let resUser;
       return chai.request(app)
-        .get('/register')
+        .get('/users/register')
         .then(function(res) {
           res.should.have.status(200);
           res.should.be.json;
@@ -103,7 +103,7 @@ describe('User Info API resource', function() {
       const newUser = generateUserInfo();
 
       return chai.request(app)
-        .post('/register')
+        .post('/users/register')
         .send(newUser)
         .then(function(res) {
           res.should.have.status(200);
@@ -140,7 +140,7 @@ describe('User Info API resource', function() {
         .then(function(user) {
           updateData.id = user.id;
           return chai.request(app)
-            .put(`/register/${user.id}`)
+            .put(`/users/register/${user.id}`)
             .send(updateData);
         })
         .then(function(res) {
@@ -165,7 +165,7 @@ describe('User Info API resource', function() {
         .exec()
         .then(function(_user) {
           user = _user;
-          return chai.request(app).delete(`/register/${user.id}`);
+          return chai.request(app).delete(`/users/register/${user.id}`);
         })
         .then(function(res) {
           res.should.have.status(200);
