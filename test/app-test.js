@@ -12,7 +12,7 @@ const {runServer, app, closeServer} = require('../app');
 chai.use(chaiHttp);
 
 function seedUserData() {
-  console.info('seeding client info');
+  console.info('seeding test user info');
   const seedData = [];
   for (let i=1; i<=10; i++) {
     seedData.push(generateUserInfo());
@@ -54,15 +54,15 @@ describe('User Info API resource', function() {
 
   describe('GET endpoint', function() {
 
-    it('should return all existing clients', function() {
+    it('should return all existing users', function() {
       let res;
       return chai.request(app)
-        .get('/login')
+        .get('/register')
         .then(function(_res) {
           res = _res;
           res.should.have.status(200);
           res.body.should.have.length.of.at.least(1);
-          return Client.count();
+          return User.count();
         })
         .then(function(count) {
           res.body.should.have.length.of(count);
@@ -70,41 +70,41 @@ describe('User Info API resource', function() {
     });
 
 
-    it('should return clients with right fields', function() {
+    it('should return users with right fields', function() {
 
-      let resClient;
+      let resUser;
       return chai.request(app)
-        .get('/api/clients')
+        .get('/register')
         .then(function(res) {
           res.should.have.status(200);
           res.should.be.json;
           res.body.should.be.a('array');
           res.body.should.have.length.of.at.least(1);
-          res.body.forEach(function(client) {
-            client.should.be.a('object');
-            client.should.include.keys(
+          res.body.forEach(function(user) {
+            user.should.be.a('object');
+            user.should.include.keys(
               '_id', 'name', 'email', 'password');
           });
-          resClient = res.body[0];
-          return Client.findById(resClient._id);
+          resUser = res.body[0];
+          return User.findById(resUser._id);
         })
-        .then(function(client) {
-          resClient._id.should.equal((client._id).toString());
-          resClient.name.should.equal(client.name);
-          resClient.email.should.equal(client.email);
-          resClient.password.should.equal(client.password);
+        .then(function(user) {
+          resUser._id.should.equal((user._id).toString());
+          resUser.name.should.equal(user.name);
+          resUser.email.should.equal(user.email);
+          resUser.password.should.equal(user.password);
         });
     });
   });
 
   describe('POST endpoint', function() {
-    it('should add a new client', function() {
+    it('should add a new user', function() {
 
-      const newClient = generateClientInfo();
+      const newUser = generateUserInfo();
 
       return chai.request(app)
-        .post('/api/clients')
-        .send(newClient)
+        .post('/register')
+        .send(newUser)
         .then(function(res) {
           res.should.have.status(200);
           res.should.be.json;
@@ -112,15 +112,15 @@ describe('User Info API resource', function() {
           res.body.should.include.keys(
             '_id', 'name', 'email', 'password');
           res.body._id.should.not.be.null;
-          res.body.name.should.equal(newClient.name);
-          res.body.email.should.equal(newClient.email);
-          res.body.password.should.equal(newClient.password);
-          return Client.findById(res.body._id);
+          res.body.name.should.equal(newUser.name);
+          res.body.email.should.equal(newUser.email);
+          res.body.password.should.equal(newUser.password);
+          return User.findById(res.body._id);
         })
-        .then(function(client) {
-          client.name.should.equal(newClient.name);
-          client.email.should.equal(newClient.email);
-          client.password.should.equal(newClient.password);
+        .then(function(user) {
+          user.name.should.equal(newUser.name);
+          user.email.should.equal(newUser.email);
+          user.password.should.equal(newUser.password);
         });
     });
   });
@@ -134,45 +134,45 @@ describe('User Info API resource', function() {
         password: 'update password'
       };
 
-      return Client
+      return User
         .findOne()
         .exec()
-        .then(function(client) {
-          updateData.id = client.id;
+        .then(function(user) {
+          updateData.id = user.id;
           return chai.request(app)
-            .put(`/api/clients/${client.id}`)
+            .put(`/register/${user.id}`)
             .send(updateData);
         })
         .then(function(res) {
           res.should.have.status(200);
-          return Client.findById(updateData.id).exec();
+          return User.findById(updateData.id).exec();
         })
-        .then(function(client) {
-          client.name.should.equal(updateData.name);
-          client.email.should.equal(updateData.email);
-          client.password.should.equal(updateData.password);
+        .then(function(user) {
+          user.name.should.equal(updateData.name);
+          user.email.should.equal(updateData.email);
+          user.password.should.equal(updateData.password);
         });
       });
   });
 
   describe('DELETE endpoint', function() {
-    it('delete a client by id', function() {
+    it('delete a user by id', function() {
 
-      let client;
+      let user;
 
-      return Client
+      return User
         .findOne()
         .exec()
-        .then(function(_client) {
-          client = _client;
-          return chai.request(app).delete(`/api/clients/${client.id}`);
+        .then(function(_user) {
+          user = _user;
+          return chai.request(app).delete(`/register/${user.id}`);
         })
         .then(function(res) {
           res.should.have.status(200);
-          return Client.findById(client.id).exec();
+          return User.findById(user.id).exec();
         })
-        .then(function(_client) {
-          should.not.exist(_client);
+        .then(function(_user) {
+          should.not.exist(_user);
         });
     });
   });
