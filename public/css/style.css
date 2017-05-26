@@ -1,7 +1,16 @@
 /* Space out content a bit */
 body {
+  display: block;
   padding-top: 20px;
   padding-bottom: 20px;
+  width:  80%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 0;
+  margin-bottom: 0;
+  border-radius: 1%;
+  border: 3px solid #001998;
+  color: #001998;
 }
 
 /* Everything but the jumbotron gets side spacing for mobile first views */
@@ -82,6 +91,18 @@ body {
   	margin-top: 0px;
   }
 
-footer p {
+div.container div.row footer {
 	margin-top: 40px;
+}
+
+html {
+  background-color: #2AA5D8;
+}
+
+.vertical-center {
+  min-height: 100%;  /* Fallback for browsers do NOT support vh unit */
+  min-height: 100vh; /* These two lines are counted as one :-)       */
+
+  display: flex;
+  align-items: center;
 }
