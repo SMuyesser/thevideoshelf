@@ -2,6 +2,8 @@ const chai = require('chai');
 const chaiHttp = require('chai-http');
 const faker = require('faker');
 const mongoose = require('mongoose');
+const mocha = require('mocha');
+const assert = require('assert');
 
 const should = chai.should();
 
@@ -34,7 +36,7 @@ function tearDownDb() {
     return mongoose.connection.dropDatabase();
 }
 
-describe('User Info API resource', function() {
+describe('thevideoshelfdb tests', function() {
 
   before(function() {
     return runServer(TEST_DATABASE_URL);
