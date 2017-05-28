@@ -15,6 +15,25 @@ router.get('/login', function(req, res){
 	res.render('login');
 });
 
+// Render Requests
+router.get('/requests', ensureAuthenticated, function(req, res){
+	res.render('requests');
+});
+
+// Render Users
+router.get('/userlist', ensureAuthenticated, function(req, res){
+	res.render('userlist');
+});
+
+// Function to ensure non users can't get into user functions
+function ensureAuthenticated(req, res, next){
+	if(req.isAuthenticated()){
+		return next();
+	} else {
+		res.redirect('/users/login');
+	}
+}
+
 // Register New User
 router.post('/register', function(req, res) {
 	const name = req.body.name;
@@ -33,7 +52,7 @@ router.post('/register', function(req, res) {
 
 	const errors = req.validationErrors();
 
-	// If there are errors, render the form with errors, otherwise create new user, with success msg, and go to login page
+	// If there are errors, render the form with errors, otherwise create new user with success msg, and go to login page
 	if(errors){
 		res.render('register', {
 			errors: errors
@@ -46,7 +65,7 @@ router.post('/register', function(req, res) {
 			password: password
 		})
 
-		// Creates mongoose new user and logs it and success message and redirect to login
+		// Creates mongoose new user, then success message and redirect to login
 		User.createUser(newUser, function(err, user){
 			if(err) throw err;
 			console.log(user);
@@ -58,7 +77,7 @@ router.post('/register', function(req, res) {
 	}
 });
 
-// Gets username, matches what you put in, finds what you put in, validates password
+// For logging in gets username, matches what you put in, finds what you put in, validates password
 passport.use(new LocalStrategy(
   	function(username, password, done) {
   		// Check if there is a user match
