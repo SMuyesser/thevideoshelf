@@ -1,9 +1,13 @@
 const express = require('express');
 const router = express.Router();
+const mongoose = require('mongoose');
+const mongodb = require('mongodb');
+const db = require('mongodb').Db;
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 
 const User = require('../models/userschema');
+const DATABASE_URL = require('../config');
 
 // Render Register
 router.get('/register', function(req, res){
@@ -20,16 +24,13 @@ router.get('/requests', ensureAuthenticated, function(req, res){
 	res.render('requests');
 });
 
-// Render Users
-router.get('/userlist', ensureAuthenticated, function(req, res){
-	res.render('userlist');
-});
-
 // Function to ensure non users can't get into user functions
 function ensureAuthenticated(req, res, next){
 	if(req.isAuthenticated()){
 		return next();
 	} else {
+		req.flash('error_msg', 'You must be logged in to access this page.');
+
 		res.redirect('/users/login');
 	}
 }

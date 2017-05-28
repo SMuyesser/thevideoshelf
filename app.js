@@ -15,6 +15,7 @@ const morgan = require('morgan');
 const {DATABASE_URL, PORT} = require('./config');
 const routes = require('./routes/index');
 const users = require('./routes/users');
+const manager = require('./routes/manager');
 
 // Initialize App & use morgan
 const app = express();
@@ -80,6 +81,7 @@ app.use(function (req, res, next) {
 
 app.use('/', routes);
 app.use('/users', users);
+app.use('/manager', manager);
 
 mongoose.Promise = global.Promise;
 
