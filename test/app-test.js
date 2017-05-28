@@ -59,7 +59,7 @@ describe('thevideoshelfdb tests', function() {
     it('should return all existing users', function() {
       let res;
       return chai.request(app)
-        .get('/users/register')
+        .get('/manager/userlist')
         .then(function(_res) {
           res = _res;
           res.should.have.status(200);
@@ -76,7 +76,7 @@ describe('thevideoshelfdb tests', function() {
 
       let resUser;
       return chai.request(app)
-        .get('/users/register')
+        .get('/manager/userlist')
         .then(function(res) {
           res.should.have.status(200);
           res.should.be.json;
@@ -105,7 +105,7 @@ describe('thevideoshelfdb tests', function() {
       const newUser = generateUserInfo();
 
       return chai.request(app)
-        .post('/users/register')
+        .post('/manager/userlist')
         .send(newUser)
         .then(function(res) {
           res.should.have.status(200);
@@ -142,7 +142,7 @@ describe('thevideoshelfdb tests', function() {
         .then(function(user) {
           updateData.id = user.id;
           return chai.request(app)
-            .put(`/users/register/${user.id}`)
+            .put(`/manager/userlist/${user.id}`)
             .send(updateData);
         })
         .then(function(res) {
@@ -167,7 +167,7 @@ describe('thevideoshelfdb tests', function() {
         .exec()
         .then(function(_user) {
           user = _user;
-          return chai.request(app).delete(`/users/register/${user.id}`);
+          return chai.request(app).delete(`/manager/userlist/${user.id}`);
         })
         .then(function(res) {
           res.should.have.status(200);
