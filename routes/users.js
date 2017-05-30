@@ -9,24 +9,30 @@ const UserStrategy = require('passport-local').Strategy;
 const User = require('../models/userschema');
 const DATABASE_URL = require('../config');
 
-// Render Register
+// Render Register User
 router.get('/register', function(req, res){
 	res.render('register');
 });
 
-// Render Login
+// Render User Login
 router.get('/login', function(req, res){
 	res.render('login');
 });
 
-// Render Requests
-router.get('/requests', ensureAuthenticated, function(req, res){
-	res.render('requests');
-});
-
-// Render clientlist
+// Render Clientlist
+// find way to make sure only this user clients
 router.get('/clientlist', ensureAuthenticated, function(req, res){
 	res.render('clientlist');
+});
+
+// Render Register New Client
+router.get('/registerclient', ensureAuthenticated, function(req, res){
+	res.render('registerclient');
+});
+
+// Render Manage Client Videos
+router.get('/manageclient', ensureAuthenticated, function(req, res){
+	res.render('manageclient');
 });
 
 // Function to ensure non users can't get into user functions

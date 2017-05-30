@@ -9,9 +9,19 @@ const ClientStrategy = require('passport-local').Strategy;
 const Client = require('../models/clientschema');
 const DATABASE_URL = require('../config');
 
-// Render client
-router.get('/', function(req, res){
-	res.render('clientlist');
+// Render client login page
+router.get('/login', function(req, res){
+	res.render('clientlogin');
+});
+
+// Render Requests
+router.get('/requests', function(req, res){
+	res.render('requests');
+});
+
+// Render ClientVideos
+router.get('/clientvideos', function(req, res){
+	res.render('clientvideos');
 });
 
 // Function to ensure non clients can't get into client functions
@@ -26,7 +36,7 @@ function ensureAuthenticated(req, res, next){
 }
 
 // Register New Client
-router.post('client/register', function(req, res) {
+router.post('/clients/register', function(req, res) {
 	const {clientUserName, clientPassword, clientEmail, clientName, 
 	       clientVideos, createdBy, createdDate} = req.body;
 
@@ -42,7 +52,7 @@ router.post('client/register', function(req, res) {
 
 	// If there are errors, render the form with errors, otherwise create new client with success msg, and redirect to login page
 	if(errors){
-		res.render('register', {
+		res.render('clientsregister', {
 			errors: errors
 		});
 	} else {
@@ -71,7 +81,7 @@ passport.use(new ClientStrategy(
   			}
 
   			// If there is a match, continue to code below
-  			Client.comparePassword(password, client.clientPassword, function(err, isMatch){
+  			Client.compareClientPassword(clientPassword, client.clientPassword, function(err, isMatch){
   				if(err) throw err;
   				if(isMatch){
   					return done(null, client);

@@ -21,12 +21,14 @@
             {{/if}}
             {{#if user}}
               <li role="presentation"><a href="/clientlist">Client List</a></li>
-              <li role="presentation"><a href="/">Manage Client Videos</a></li>
-              <li role="presentation"><a href="/users/requests">Requests</a></li>
+              <li role="presentation"><a href="/users/manageclient">Manage Client Videos</a></li>
               <li role="presentation"><a href="/users/logout">Logout</a></li>
-  			    {{else}}
+            {{else}}
               <li role="presentation"><a href="/users/login">Login</a></li>
               <li role="presentation"><a href="/users/register">Register</a></li>
+              <!-- If Client-->
+              <li role="presentation"><a href="/clients/requests">Requests</a></li>
+              <li role="presentation"><a href="/clients/clientvideos">My Videos</a></li>
             {{/if}}
           </ul>
         </nav>

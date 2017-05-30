@@ -20,7 +20,7 @@ const ClientSchema = mongoose.Schema({
 	clientVideos: {
 		type: String
 	},
-	// find the id of the the user
+	// find the id of the the user who registered this client
 	createdBy: {
 		type: mongoose.Schema.Types.ObjectId, ref: 'User'
 	},
@@ -45,7 +45,7 @@ module.exports.createClient = function(newClient, callback){
 
 // Gets username using mongoose method findone
 module.exports.getClientByClientUserName = function(clientUserName, callback){
-	const query = {clientUsername: clientUserName};
+	const query = {clientUserName: clientUserName};
 	Client.findOne(query, callback);
 }
 
