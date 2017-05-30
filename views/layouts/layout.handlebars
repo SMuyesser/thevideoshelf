@@ -16,8 +16,10 @@
           <ul class="nav nav-pills pull-right">
 
             <!-- If user logged in, only show logout, else show login and register-->
-            {{#if user}}
+            {{#if user.manager}}
               <li role="presentation"><a href="/manager/userlist">User List</a></li>
+            {{/if}}
+            {{#if user}}
               <li role="presentation"><a href="/">My Videos</a></li>
               <li role="presentation"><a href="/users/requests">Requests</a></li>
               <li role="presentation"><a href="/users/logout">Logout</a></li>

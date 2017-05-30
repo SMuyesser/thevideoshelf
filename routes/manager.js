@@ -3,8 +3,6 @@ const router = express.Router();
 const mongoose = require('mongoose');
 const mongodb = require('mongodb');
 
-const Manager = require('../models/managerschema');
-
 
 // Show user list for manager
 router.get('/userlist', managerAuthenticated, function(req, res){
@@ -17,7 +15,7 @@ router.get('/userlist', managerAuthenticated, function(req, res){
 
 // Function to ensure only manager access
 function managerAuthenticated(req, res, next){
-	if(req.isAuthenticated()){
+	if(req.isAuthenticated() && req.user.manager){
 		return next();
 	} else {
 		req.flash('error_msg', 'You must be logged in as manager to access this page.');

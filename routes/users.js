@@ -37,11 +37,7 @@ function ensureAuthenticated(req, res, next){
 
 // Register New User
 router.post('/register', function(req, res) {
-	const name = req.body.name;
-	const email = req.body.email;
-	const username = req.body.username;
-	const password = req.body.password;
-	const password2 = req.body.password2;
+	const {name, email, username, password, password2} = req.body;
 
 	// Validation
 	req.checkBody('name', 'Name is required').notEmpty();
@@ -59,12 +55,7 @@ router.post('/register', function(req, res) {
 			errors: errors
 		});
 	} else {
-		const newUser = new User({
-			name: name,
-			email: email,
-			username: username,
-			password: password
-		})
+		const newUser = new User({name, email, username, password})
 
 		// Creates mongoose new user, then success message and redirect to login
 		User.createUser(newUser, function(err, user){
@@ -113,10 +104,9 @@ passport.deserializeUser(function(id, done) {
 
 // Redirects for successful or failing authentication of post request to login
 router.post('/login', 
-	passport.authenticate('local', {successRedirect:'/', failureRedirect: '/users/login', failureFlash: true}),
-	function(req, res) {
-		res.redirect('/');
-	});
+	passport.authenticate('local', {successRedirect:'/', failureRedirect: '/users/login', failureFlash: true})
+	);
+
 
 // Logout
 router.get('/logout', function(req, res){

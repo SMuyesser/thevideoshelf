@@ -14,6 +14,10 @@ const UserSchema = mongoose.Schema({
 	},
 	name: {
 		type: String
+	},
+	manager: {
+		type: Boolean,
+		default: false
 	}
 });
 
