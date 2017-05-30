@@ -1,2 +1,12 @@
-<h2>Client Login</h2>
-<p>page for client to login</p>
+<h2 class="page-header">Client Login</h2>
+<form method="post" action="/users/login">
+	<div class="form-group">
+		<label>Username</label>
+		<input type="text" class="form-control" placeholder="Username" name="clientUserName">
+	</div>
+	<div class="form-group">
+		<label>Password</label>
+		<input type="password" class="form-control" placeholder="Password" name="clientPassword">
+	</div>
+	<button type="submit" class="btn btn-default">Submit</button>
+</form>
