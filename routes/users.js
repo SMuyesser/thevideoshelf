@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 const mongodb = require('mongodb');
 const db = require('mongodb').Db;
 const passport = require('passport');
-const LocalStrategy = require('passport-local').Strategy;
+const UserStrategy = require('passport-local').Strategy;
 
 const User = require('../models/userschema');
 const DATABASE_URL = require('../config');
@@ -22,6 +22,11 @@ router.get('/login', function(req, res){
 // Render Requests
 router.get('/requests', ensureAuthenticated, function(req, res){
 	res.render('requests');
+});
+
+// Render clientlist
+router.get('/clientlist', ensureAuthenticated, function(req, res){
+	res.render('clientlist');
 });
 
 // Function to ensure non users can't get into user functions
@@ -42,7 +47,7 @@ router.post('/register', function(req, res) {
 	// Validation
 	req.checkBody('name', 'Name is required').notEmpty();
 	req.checkBody('email', 'Email is required').notEmpty();
-	req.checkBody('email', 'Name is not valid').isEmail();
+	req.checkBody('email', 'Email is not valid').isEmail();
 	req.checkBody('username', 'Username is required').notEmpty();
 	req.checkBody('password', 'Password is required').notEmpty();
 	req.checkBody('password2', 'Passwords do not match').equals(req.body.password);
@@ -55,7 +60,7 @@ router.post('/register', function(req, res) {
 			errors: errors
 		});
 	} else {
-		const newUser = new User({name, email, username, password})
+		const newUser = new User({name, email, username, password});
 
 		// Creates mongoose new user, then success message and redirect to login
 		User.createUser(newUser, function(err, user){
@@ -70,7 +75,7 @@ router.post('/register', function(req, res) {
 });
 
 // For logging in gets username, matches what you put in, finds what you put in, validates password
-passport.use(new LocalStrategy(
+passport.use(new UserStrategy(
   	function(username, password, done) {
   		// Check if there is a user match
   		User.getUserByUsername(username, function(err, user){

@@ -1,10 +1,10 @@
 const mongoose = require('mongoose');
 
-const User = require('/userschema');
+const UserSchema = require('./userschema');
 
 
 const ClientSchema = mongoose.Schema({
-	clientName: {
+	clientUserName: {
 		type: String,
 		index: true
 	},
@@ -17,12 +17,12 @@ const ClientSchema = mongoose.Schema({
 	clientName: {
 		type: String
 	},
-	clientVideos {
+	clientVideos: {
 		type: String
 	},
 	// find the id of the the user
-	createdBy {
-		type: {mongoose.Schema.Types.ObjectId, ref: 'User'}
+	createdBy: {
+		type: mongoose.Schema.Types.ObjectId, ref: 'User'
 	},
 	createdDate: {
 		type: Date
@@ -30,4 +30,35 @@ const ClientSchema = mongoose.Schema({
 });
 
 const Client = module.exports = mongoose.model('Client', ClientSchema);
+
+// Model Functions
+
+// Creates new client and encrypts password
+module.exports.createClient = function(newClient, callback){
+	bcrypt.genSalt(10, function(err, salt) {
+		bcrypt.hash(newClient.clientPassword, salt, function(err, hash) {
+			newClient.password = hash;
+			newClient.save(callback);
+		});
+	});
+}
+
+// Gets username using mongoose method findone
+module.exports.getClientByClientUserName = function(clientUserName, callback){
+	const query = {clientUsername: clientUserName};
+	Client.findOne(query, callback);
+}
+
+
+module.exports.getClientById = function(id, callback){
+	Client.findById(id, callback);
+}
+
+// checks to see if password is match
+module.exports.compareClientPassword = function(candidatePassword, hash, callback){
+	bcrypt.compare(candidatePassword, hash, function(err, isMatch) {
+		if(err) throw err;
+		callback(null, isMatch);
+	});
+}
 
