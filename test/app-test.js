@@ -32,7 +32,7 @@ function seedUserData() {
   }
   seedData[0].manager=true;
   manager = seedData[0];
-  return User.insert(seedData);
+  return User.insertMany(seedData);
 }
 
 function tearDownDb() {
