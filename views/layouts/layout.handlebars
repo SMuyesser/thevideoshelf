@@ -20,19 +20,14 @@
               <li role="presentation"><a href="/manager/userlist">User List</a></li>
             {{/if}}
             {{#if user}}
-              <li role="presentation"><a href="/clientlist">Client List</a></li>
+              <li role="presentation"><a href="/users/clientlist">Client List</a></li>
+              <li role="presentation"><a href="/users/registerclient">Register New Client</a></li>
               <li role="presentation"><a href="/users/manageclient">Manage Client Videos</a></li>
               <li role="presentation"><a href="/users/logout">Logout</a></li>
-            {{/if}}
-            {{#if client}}
-              <li role="presentation"><a href="/clients/requests">Requests</a></li>
-              <li role="presentation"><a href="/clients/clientvideos">My Videos</a></li>
-              <li role="presentation"><a href="/clients/logout">Logout</a></li>
-            {{/if}}
-            
-              <li role="presentation"><a href="/users/login">User Login</a></li>
-              <li role="presentation"><a href="/clients/login">Client Login</a></li>
+            {{else}}
+              <li role="presentation"><a href="/users/login">Login</a></li>
               <li role="presentation"><a href="/users/register">Register New User</a></li>
+            {{/if}}
 
           </ul>
         </nav>

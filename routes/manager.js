@@ -13,6 +13,8 @@ router.get('/userlist', managerAuthenticated, function(req, res){
 	});
 });
 
+
+
 // Function to ensure only manager access
 function managerAuthenticated(req, res, next){
 	if(req.isAuthenticated() && req.user.manager){

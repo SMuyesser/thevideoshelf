@@ -7,6 +7,7 @@ const passport = require('passport');
 const UserStrategy = require('passport-local').Strategy;
 
 const User = require('../models/userschema');
+const Client = require('../models/clientschema');
 const DATABASE_URL = require('../config');
 
 // Render Register User
@@ -20,9 +21,13 @@ router.get('/login', function(req, res){
 });
 
 // Render Clientlist
-// find way to make sure only this user clients
+// find way to make sure only this user's clients
 router.get('/clientlist', ensureAuthenticated, function(req, res){
-	res.render('clientlist');
+	mongoose.connection.db.collection('clients', function (err, collection) {
+		collection.find({}).toArray(function(err, data){
+			res.send(data);
+		});
+	});
 });
 
 // Render Register New Client
@@ -34,6 +39,8 @@ router.get('/registerclient', ensureAuthenticated, function(req, res){
 router.get('/manageclient', ensureAuthenticated, function(req, res){
 	res.render('manageclient');
 });
+
+
 
 // Function to ensure non users can't get into user functions
 function ensureAuthenticated(req, res, next){
@@ -69,16 +76,55 @@ router.post('/register', function(req, res) {
 		const newUser = new User({name, email, username, password});
 
 		// Creates mongoose new user, then success message and redirect to login
-		User.createUser(newUser, function(err, user){
-			if(err) throw err;
-			console.log(user);
-		});
+		User.createUser(newUser)
+		.then(function(user){
+			req.flash('success_msg', 'You are registered and can now login');
+			res.redirect('/users/login');
+		})
+		.catch(function(err) {
+			console.error(err);
+			req.flash('error_msg', 'An error occored');
+			res.redirect('/users/register');	
+		})
 
-		req.flash('success_msg', 'You are registered and can now login');
-
-		res.redirect('/users/login');
 	}
 });
+
+
+
+// Register New Client
+router.post('/registerclient', function(req, res) {
+	const {name, logo, videos, createdBy} = req.body;
+
+	// Validation
+	req.checkBody('name', 'Client name is required').notEmpty();
+	/*req.checkBody('clientLogo', 'Client logo must be an image').isImage();*/
+
+	const errors = req.validationErrors();
+
+	// If there are errors, render the form with errors, otherwise create new client with success msg
+	if(errors){
+		res.render('registerclient', {
+			errors: errors
+		});
+	} else {
+		const newClient = new Client({name, logo, videos, createdBy});
+
+		// Creates mongoose new client, then success message and redirect to login
+		console.log(newClient);
+		Client.createClient(newClient)
+		.then(function(client){
+			req.flash('success_msg', 'Your client has been registered');
+			res.redirect('/users/clientlist');
+		})
+		.catch(function(err) {
+			console.error(err);
+			req.flash('error_msg', 'An error occored');
+			res.redirect('/users/registerclient');	
+		})
+	}
+});
+
 
 // For logging in gets username, matches what you put in, finds what you put in, validates password
 passport.use(new UserStrategy(

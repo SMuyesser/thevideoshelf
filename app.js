@@ -7,7 +7,7 @@ const expressValidator = require('express-validator');
 const flash = require('connect-flash');
 const session = require('express-session');
 const passport = require('passport');
-const {UserStrategy, ClientStrategy} = require('passport-local').Strategy;
+const UserStrategy = require('passport-local').Strategy;
 const mongo = require('mongodb');
 const mongoose = require('mongoose');
 const morgan = require('morgan');
@@ -16,8 +16,8 @@ const {DATABASE_URL, PORT} = require('./config');
 const routes = require('./routes/index');
 const users = require('./routes/users');
 const manager = require('./routes/manager');
-const clients = require('./routes/clients');
-
+/*const clients = require('./routes/clients');
+*/
 // Initialize App & use morgan
 const app = express();
 app.use(morgan('common'));
@@ -64,7 +64,18 @@ app.use(expressValidator({
       msg   : msg,
       value : value
     };
-  }
+  }/*,
+  customValidators: { 
+    isImage: function(value, filename) { 
+      var extension = (path.extname(filename)).toLowerCase(); 
+      switch (extension) { 
+        case '.jpg': return '.jpg'; 
+        case '.jpeg': return '.jpeg'; 
+        case '.png': return '.png'; 
+        default: return false; 
+      } 
+    } 
+  }*/
 }));
 
 // Connect Flash
@@ -83,8 +94,8 @@ app.use(function (req, res, next) {
 app.use('/', routes);
 app.use('/manager', manager);
 app.use('/users', users);
-app.use('/clients', clients);
-
+/*app.use('/clients', clients);
+*/
 mongoose.Promise = global.Promise;
 
 

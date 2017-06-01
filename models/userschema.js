@@ -24,15 +24,31 @@ const UserSchema = mongoose.Schema({
 const User = module.exports = mongoose.model('User', UserSchema);
 
 // Model Functions
+UserSchema.pre('save', function(next) {
+  const user = this;
+  if (user.isModified('password')) {
+    bcrypt.genSalt(10)
+      .then((salt) => bcrypt.hash(user.password, salt))
+      .then((hash) => {
+        user.password = hash;
+        next();
+      })
+      .catch((err) => next(err));
+  } else {
+    next();
+  }
+});
 
-// Creates new user and encrypts password
-module.exports.createUser = function(newUser, callback){
-	bcrypt.genSalt(10, function(err, salt) {
-		bcrypt.hash(newUser.password, salt, function(err, hash) {
-			newUser.password = hash;
-			newUser.save(callback);
-		});
-	});
+module.exports.createUser = function(user) {
+	return bcrypt.genSalt(10)
+	.then(function(salt){
+		return bcrypt.hash(user.password, salt)
+	})
+	.then(function(hash){
+		user.password = hash;
+		user.save();
+	})
+	.catch(function(err){console.error(err); throw err;})
 }
 
 // Gets username using mongoose method findone
