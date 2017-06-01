@@ -9,25 +9,34 @@
 <h3>Update Client</h3>
 <form method="put" id="js-client-update-form" action="/users/manageclient/">
 	<div class="form-group">
-		<label>Client Name</label>
-		<input type="text" class="form-control" placeholder="Name" id="js-clientName">
+		<label>Client To Be Updated</label>
+		<select class="form-control" id="js-update-client" name="name">		
+		{{#each clients}}
+		  <option value="{{this.id}}">{{this.name}}</option>
+		{{/each}}
+		</select>
+		<label>Update Selected Client's Information</label>
+		<input type="text" class="form-control" placeholder="Name" id="js-update-name" name="updatedName">
+		<input type="text" class="form-control" placeholder="Logo" id="js-update-logo" name="updatedLogo">
+		<input type="text" class="form-control" placeholder="Videos" id="js-update-videos" name="updatedVideos">
 	</div>
-	<div class="form-group">
-		<label>Client Logo</label>
-		<input type="text" class="form-control" placeholder="Enter Logo url" id="js-clientLogo">
-	</div>
-	<div class="form-group">
-		<label>Client Vidoes</label>
-		<input type="text" class="form-control" placeholder="Videos" id="js-clientVideos">
-	</div>
-	<button type="submit" class="btn btn-default">Submit</button>
+	<button type="submit" class="btn btn-default update-btn">Submit</button>
 </form>
+
 
 <h3>Delete Client</h3>
 <form method="delete" id="js-client-delete-form" action="/users/manageclient/">
 	<div class="form-group">
-		<label>Client Name</label>
-		<input type="text" class="form-control" placeholder="Enter client to be deleted" id="js-delete-client" name="name">
+		<label>Client To Be Deleted</label>
+		<select class="form-control" id="js-delete-client" name="name">		
+		{{#each clients}}
+		  <option value="{{this.id}}">{{this.name}}</option>
+		{{/each}}
+		</select>
 	</div>
 	<button type="submit" class="btn btn-default delete-btn">Submit</button>
 </form>
+
+<script type="text/javascript" src="/js/clientdelete.js"></script>
+<script type="text/javascript" src="/js/clientupdate.js"></script>
+

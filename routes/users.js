@@ -34,12 +34,10 @@ router.get('/login', function(req, res){
 // Render Clientlist
 // find way to make sure only this user's clients
 router.get('/clientlist', function(req, res){
-	mongoose.connection.db.collection('clients', function (err, collection) {
-		if (err) throw err
-		collection.find({}).toArray(function(err, data){
-			res.send(data);
-		});
-	});
+	Client.find()
+	.then(function(clients){
+		res.render('clientlist', {clients});
+	})
 });
 
 
@@ -50,7 +48,10 @@ router.get('/registerclient', function(req, res){
 
 // Render Manage Client 
 router.get('/manageclient', function(req, res){
-	res.render('manageclient');
+	Client.find()
+	.then(function(clients) {
+		res.render('manageclient', {clients});
+	})
 });
 
 // Get Client by id
@@ -62,7 +63,7 @@ router.get('/clientlist/:_id', function(req, res) {
 
 // Delete Client
 router.delete('/clientlist/:_id', function(req, res) {
-  	Client.findOneAndRemove(req.params._id, function (err, client) {
+  	Client.findByIdAndRemove(req.params._id, function (err, client) {
   		var response = {
   			message: "The following client has been successfully deleted",
   			name: client.name,
@@ -73,24 +74,24 @@ router.delete('/clientlist/:_id', function(req, res) {
 });
 
 // Update Client
-router.put('/clientlist/:name', function(req, res) {
-  if (!(req.params.name && req.body.name && req.params.name === req.body.name)) {
-    res.status(400).json({
-      error: 'Request path name and request body name values must match'
-    });
-  }
-  const updated = {};
-  const updateableFields = ['name', 'logo', 'videos'];
-  updateableFields.forEach(field => {
-    if (field in req.body) {
-      updated[field] = req.body[field];
-    }
-  });
-  Client
-    .findByIdAndUpdate(req.params.id, {$set: updated}, {new: true})
-    .exec()
-    .then(updatedClient => res.status(201).json(updatedClient)
-    .catch(err => res.status(500).json({message: 'Something went wrong'})));
+router.put('/clientlist/:_id', function(req, res) {
+	Client.findById(req.params._id, function (err, client) {  
+	    if (err) {
+	        res.status(500).send(err);
+	    } else {
+	        client.name = req.body.name || client.name;
+	        client.logo = req.body.logo || client.logo;
+	        client.videos = req.body.videos || client.videos;
+
+	        // Save the updated document back to the database
+	        client.save(function (err, client) {
+	            if (err) {
+	                res.status(500).send(err)
+	            }
+	            res.send(client);
+	        });
+	    }
+	});
 });
 
 // Register New User

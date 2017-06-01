@@ -3,14 +3,14 @@ const router = express.Router();
 const mongoose = require('mongoose');
 const mongodb = require('mongodb');
 
+const User = require('../models/userschema')
 
 // Show user list for manager
 router.get('/userlist', managerAuthenticated, function(req, res){
-	mongoose.connection.db.collection('users', function (err, collection) {
-		collection.find({}).toArray(function(err, data){
-			res.send(data);
-		});
-	});
+	User.find()
+	.then(function(users){
+		res.render('userlist', {users});
+	})
 });
 
 
