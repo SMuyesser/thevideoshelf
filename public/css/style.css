@@ -8,9 +8,7 @@ body {
   margin-right: auto;
   margin-top: 0;
   margin-bottom: 0;
-  border-radius: 1%;
-  border: 3px solid #001998;
-  color: #001998;
+  color: #1B40FC;
 }
 
 /* Everything but the jumbotron gets side spacing for mobile first views */
@@ -37,7 +35,6 @@ body {
 .footer {
   padding-top: 19px;
   color: #777;
-  border-top: 1px solid #e5e5e5;
 }
 
 /* Customize container */
@@ -105,4 +102,25 @@ html {
 
   display: flex;
   align-items: center;
+}
+
+#js-update-client {
+  margin-bottom: 10px;
+}
+
+#js-client-update-form,
+#js-client-delete-form {
+  margin-left: 20px;
+}
+
+#js-client-update-form input {
+  margin-bottom: 5px;
+}
+
+h2 {
+  color: black;
+}
+
+form label {
+  color: #001998;
 }

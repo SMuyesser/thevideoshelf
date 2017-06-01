@@ -15,6 +15,15 @@ chai.use(chaiHttp);
 
 let manager;
 
+function generateUserInfo() {
+  return {
+    name: faker.name.firstName(),
+    username: faker.name.lastName(),
+    email: faker.name.firstName(),
+    password: faker.name.lastName()
+  }
+}
+
 function seedUserData() {
   console.info('seeding test user info');
   const seedData = [];
@@ -23,16 +32,7 @@ function seedUserData() {
   }
   seedData[0].manager=true;
   manager = seedData[0];
-  return User.insertMany(seedData);
-}
-
-function generateUserInfo() {
-  return {
-    name: faker.name.firstName(),
-    username: faker.name.lastName(),
-    email: faker.name.firstName(),
-    password: faker.name.lastName()
-  }
+  return User.insert(seedData);
 }
 
 function tearDownDb() {
@@ -68,13 +68,13 @@ describe('thevideoshelfdb tests', function() {
         username: manager.username, 
         password: manager.password})
       .then(function(res) {
-      console.log(manager);
+        console.log(manager);
         res.should.redirect;
         res.should.redirectTo(`${res.request.protocol}//${res.request.host}/`);
       })
     });
 
-    it.skip('should not login as manager', function () {
+    it('should not login as manager', function () {
       return chai.request(app)
       .post('/users/login')
       .type('form')
