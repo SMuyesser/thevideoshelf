@@ -21,7 +21,7 @@ function ensureAuthenticated(req, res, next){
 	}
 }
 
-// Render Register User
+// Render User Register
 router.get('/register', function(req, res){
 	res.render('register');
 });
@@ -33,21 +33,20 @@ router.get('/login', function(req, res){
 
 // Render Clientlist
 // find way to make sure only this user's clients
-router.get('/clientlist', function(req, res){
+router.get('/clientlist', ensureAuthenticated, function(req, res){
 	Client.find()
 	.then(function(clients){
 		res.render('clientlist', {clients});
 	})
 });
 
-
 // Render Register New Client
-router.get('/registerclient', function(req, res){
+router.get('/registerclient', ensureAuthenticated, function(req, res){
 	res.render('registerclient');
 });
 
 // Render Manage Client 
-router.get('/manageclient', function(req, res){
+router.get('/manageclient', ensureAuthenticated, function(req, res){
 	Client.find()
 	.then(function(clients) {
 		res.render('manageclient', {clients});
@@ -55,42 +54,9 @@ router.get('/manageclient', function(req, res){
 });
 
 // Get Client by id
-router.get('/clientlist/:_id', function(req, res) {
+router.get('/clientlist/:_id', ensureAuthenticated, function(req, res) {
 	Client.getClientById(req.params._id, function (err, data) {
 			res.send(data);
-	});
-});
-
-// Delete Client
-router.delete('/clientlist/:_id', function(req, res) {
-  	Client.findByIdAndRemove(req.params._id, function (err, client) {
-  		var response = {
-  			message: "The following client has been successfully deleted",
-  			name: client.name,
-  			id: client._id
-  		};
-	  	res.send(response);
-  	});
-});
-
-// Update Client
-router.put('/clientlist/:_id', function(req, res) {
-	Client.findById(req.params._id, function (err, client) {  
-	    if (err) {
-	        res.status(500).send(err);
-	    } else {
-	        client.name = req.body.name || client.name;
-	        client.logo = req.body.logo || client.logo;
-	        client.videos = req.body.videos || client.videos;
-
-	        // Save the updated document back to the database
-	        client.save(function (err, client) {
-	            if (err) {
-	                res.status(500).send(err)
-	            }
-	            res.send(client);
-	        });
-	    }
 	});
 });
 
@@ -164,6 +130,38 @@ router.post('/registerclient', function(req, res) {
 	}
 });
 
+// Update Client
+router.put('/clientlist/:_id', ensureAuthenticated, function(req, res) {
+	Client.findById(req.params._id, function (err, client) {  
+	    if (err) {
+	        res.status(500).send(err);
+	    } else {
+	        client.name = req.body.name || client.name;
+	        client.logo = req.body.logo || client.logo;
+	        client.videos = req.body.videos || client.videos;
+
+	        // Save the updated document back to the database
+	        client.save(function (err, client) {
+	            if (err) {
+	                res.status(500).send(err)
+	            }
+	            res.send(client);
+	        });
+	    }
+	});
+});
+
+// Delete Client
+router.delete('/clientlist/:_id', ensureAuthenticated, function(req, res) {
+  	Client.findByIdAndRemove(req.params._id, function (err, client) {
+  		var response = {
+  			message: "The following client has been successfully deleted",
+  			name: client.name,
+  			id: client._id
+  		};
+	  	res.send(response);
+  	});
+});
 
 // For logging in. gets username, matches what you put in, finds what you put in, validates password
 passport.use(new UserStrategy(
