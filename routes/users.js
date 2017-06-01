@@ -10,6 +10,17 @@ const User = require('../models/userschema');
 const Client = require('../models/clientschema');
 const DATABASE_URL = require('../config');
 
+// Function to ensure non users can't get into user functions
+function ensureAuthenticated(req, res, next){
+	if(req.isAuthenticated()){
+		return next();
+	} else {
+		req.flash('error_msg', 'You must be logged in to access this page.');
+
+		res.redirect('/users/login');
+	}
+}
+
 // Render Register User
 router.get('/register', function(req, res){
 	res.render('register');
@@ -22,36 +33,65 @@ router.get('/login', function(req, res){
 
 // Render Clientlist
 // find way to make sure only this user's clients
-router.get('/clientlist', ensureAuthenticated, function(req, res){
+router.get('/clientlist', function(req, res){
 	mongoose.connection.db.collection('clients', function (err, collection) {
+		if (err) throw err
 		collection.find({}).toArray(function(err, data){
 			res.send(data);
 		});
 	});
 });
 
+
 // Render Register New Client
-router.get('/registerclient', ensureAuthenticated, function(req, res){
+router.get('/registerclient', function(req, res){
 	res.render('registerclient');
 });
 
-// Render Manage Client Videos
-router.get('/manageclient', ensureAuthenticated, function(req, res){
+// Render Manage Client 
+router.get('/manageclient', function(req, res){
 	res.render('manageclient');
 });
 
+// Get Client by id
+router.get('/clientlist/:_id', function(req, res) {
+	Client.getClientById(req.params._id, function (err, data) {
+			res.send(data);
+	});
+});
 
+// Delete Client
+router.delete('/clientlist/:_id', function(req, res) {
+  	Client.findOneAndRemove(req.params._id, function (err, client) {
+  		var response = {
+  			message: "The following client has been successfully deleted",
+  			name: client.name,
+  			id: client._id
+  		};
+	  	res.send(response);
+  	});
+});
 
-// Function to ensure non users can't get into user functions
-function ensureAuthenticated(req, res, next){
-	if(req.isAuthenticated()){
-		return next();
-	} else {
-		req.flash('error_msg', 'You must be logged in to access this page.');
-
-		res.redirect('/users/login');
-	}
-}
+// Update Client
+router.put('/clientlist/:name', function(req, res) {
+  if (!(req.params.name && req.body.name && req.params.name === req.body.name)) {
+    res.status(400).json({
+      error: 'Request path name and request body name values must match'
+    });
+  }
+  const updated = {};
+  const updateableFields = ['name', 'logo', 'videos'];
+  updateableFields.forEach(field => {
+    if (field in req.body) {
+      updated[field] = req.body[field];
+    }
+  });
+  Client
+    .findByIdAndUpdate(req.params.id, {$set: updated}, {new: true})
+    .exec()
+    .then(updatedClient => res.status(201).json(updatedClient)
+    .catch(err => res.status(500).json({message: 'Something went wrong'})));
+});
 
 // Register New User
 router.post('/register', function(req, res) {
@@ -83,14 +123,12 @@ router.post('/register', function(req, res) {
 		})
 		.catch(function(err) {
 			console.error(err);
-			req.flash('error_msg', 'An error occored');
+			req.flash('error_msg', 'An error occured');
 			res.redirect('/users/register');	
 		})
 
 	}
 });
-
-
 
 // Register New Client
 router.post('/registerclient', function(req, res) {
@@ -119,14 +157,14 @@ router.post('/registerclient', function(req, res) {
 		})
 		.catch(function(err) {
 			console.error(err);
-			req.flash('error_msg', 'An error occored');
+			req.flash('error_msg', 'An error occured');
 			res.redirect('/users/registerclient');	
 		})
 	}
 });
 
 
-// For logging in gets username, matches what you put in, finds what you put in, validates password
+// For logging in. gets username, matches what you put in, finds what you put in, validates password
 passport.use(new UserStrategy(
   	function(username, password, done) {
   		// Check if there is a user match
@@ -165,7 +203,7 @@ router.post('/login',
 	);
 
 
-// Logout
+// User Logout
 router.get('/logout', function(req, res){
 	req.logout();
 	req.flash('success_msg', 'You are logged out');

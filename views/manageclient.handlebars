@@ -1,2 +1,33 @@
 <h2>Manage Client</h2>
-<p>manage client videos and info</p>
+{{#if errors}}
+	{{#each errors}}
+		<div class="alert alert-danger">
+			{{msg}}
+		</div>
+	{{/each}}
+{{/if}}
+<h3>Update Client</h3>
+<form method="put" id="js-client-update-form" action="/users/manageclient/">
+	<div class="form-group">
+		<label>Client Name</label>
+		<input type="text" class="form-control" placeholder="Name" id="js-clientName">
+	</div>
+	<div class="form-group">
+		<label>Client Logo</label>
+		<input type="text" class="form-control" placeholder="Enter Logo url" id="js-clientLogo">
+	</div>
+	<div class="form-group">
+		<label>Client Vidoes</label>
+		<input type="text" class="form-control" placeholder="Videos" id="js-clientVideos">
+	</div>
+	<button type="submit" class="btn btn-default">Submit</button>
+</form>
+
+<h3>Delete Client</h3>
+<form method="delete" id="js-client-delete-form" action="/users/manageclient/">
+	<div class="form-group">
+		<label>Client Name</label>
+		<input type="text" class="form-control" placeholder="Enter client to be deleted" id="js-delete-client" name="name">
+	</div>
+	<button type="submit" class="btn btn-default delete-btn">Submit</button>
+</form>
