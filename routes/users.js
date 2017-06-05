@@ -45,14 +45,6 @@ router.get('/registerclient', ensureAuthenticated, function(req, res){
 	res.render('registerclient');
 });
 
-// Render Client Search
-router.get('/searchclient', function(req, res){
-	Client.find()
-	.then(function(clients){
-		res.render('searchclient', {clients});
-	})
-});
-
 // Render Manage Client 
 router.get('/manageclient', ensureAuthenticated, function(req, res){
 	Client.find()

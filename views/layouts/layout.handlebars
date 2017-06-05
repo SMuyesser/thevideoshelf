@@ -20,11 +20,11 @@
           <ul class="nav nav-pills pull-right">
 
             <!-- If user logged in, only show logout, else show login and register-->
+              <li role="presentation"><a href="/searchclient">Search Clients</a></li>
             {{#if user.manager}}
               <li role="presentation"><a href="/manager/userlist">User List</a></li>
             {{/if}}
             {{#if user}}
-              <li role="presentation"><a href="/users/searchclient">Search Clients</a></li>
               <li role="presentation"><a href="/users/clientlist">Client List</a></li>
               <li role="presentation"><a href="/users/registerclient">Register New Client</a></li>
               <li role="presentation"><a href="/users/manageclient">Manage Client</a></li>

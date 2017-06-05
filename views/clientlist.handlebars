@@ -1,7 +1,7 @@
 <h2 class="page-header">Client List</h2>
 
 {{#each clients}}
-	<img src="{{this.logo}}" alt="{{this.name}} logo" style="width: 100px; height: 100px;">
-	{{this.name}}</br>
+	<a href="http://localhost:3000/searchclient/{{this.id}}"><img src="{{this.logo}}" alt="{{this.name}} logo" style="width: 100px; height: 100px;">
+	{{this.name}}</br></a>
 {{/each}}
 
