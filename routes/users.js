@@ -44,6 +44,21 @@ router.get('/manageclient', ensureAuthenticated, function(req, res){
 	})
 });
 
+// Render Clientlist
+router.get('/clientlist', function(req, res){
+	Client.find()
+	.then(function(clients){
+		res.render('clientlist', {clients});
+	})
+});
+
+// Get Client by id
+router.get('/clientlist/:_id', function(req, res) {
+	Client.getClientById(req.params._id, function (err, data) {
+			res.render('clientpage', data);
+	});
+});
+
 // Register New User
 router.post('/register', function(req, res) {
 	const {name, email, username, password, password2} = req.body;
