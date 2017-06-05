@@ -31,15 +31,6 @@ router.get('/login', function(req, res){
 	res.render('login');
 });
 
-// Render Clientlist
-// find way to make sure only this user's clients
-router.get('/clientlist', ensureAuthenticated, function(req, res){
-	Client.find()
-	.then(function(clients){
-		res.render('clientlist', {clients});
-	})
-});
-
 // Render Register New Client
 router.get('/registerclient', ensureAuthenticated, function(req, res){
 	res.render('registerclient');
@@ -51,13 +42,6 @@ router.get('/manageclient', ensureAuthenticated, function(req, res){
 	.then(function(clients) {
 		res.render('manageclient', {clients});
 	})
-});
-
-// Get Client by id
-router.get('/searchclient/:_id', function(req, res) {
-	Client.getClientById(req.params._id, function (err, data) {
-			res.render('clientpage', data);
-	});
 });
 
 // Register New User
@@ -120,7 +104,7 @@ router.post('/registerclient', function(req, res) {
 		Client.createClient(newClient)
 		.then(function(client){
 			req.flash('success_msg', 'Your client has been registered');
-			res.redirect('/users/clientlist');
+			res.redirect('/clientlist');
 		})
 		.catch(function(err) {
 			console.error(err);
