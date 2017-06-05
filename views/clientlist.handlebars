@@ -1,5 +1,7 @@
 <h2 class="page-header">Client List</h2>
 
 {{#each clients}}
-	{{name}}</br>
+	<img src="{{this.logo}}" alt="{{this.name}} logo" style="width: 100px; height: 100px;">
+	{{this.name}}</br>
 {{/each}}
+

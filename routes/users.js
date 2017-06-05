@@ -45,6 +45,14 @@ router.get('/registerclient', ensureAuthenticated, function(req, res){
 	res.render('registerclient');
 });
 
+// Render Client Search
+router.get('/searchclient', function(req, res){
+	Client.find()
+	.then(function(clients){
+		res.render('searchclient', {clients});
+	})
+});
+
 // Render Manage Client 
 router.get('/manageclient', ensureAuthenticated, function(req, res){
 	Client.find()
@@ -54,9 +62,9 @@ router.get('/manageclient', ensureAuthenticated, function(req, res){
 });
 
 // Get Client by id
-router.get('/clientlist/:_id', ensureAuthenticated, function(req, res) {
+router.get('/searchclient/:_id', function(req, res) {
 	Client.getClientById(req.params._id, function (err, data) {
-			res.send(data);
+			res.render('clientpage', data);
 	});
 });
 
