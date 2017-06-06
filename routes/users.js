@@ -53,8 +53,8 @@ router.get('/clientlist', function(req, res){
 });
 
 // Get Client by id
-router.get('/clientlist/:_id', function(req, res) {
-	Client.getClientById(req.params._id, function (err, data) {
+router.get('/clientlist/:id', function(req, res) {
+	Client.getClientById(req.params.id, function (err, data) {
 			res.render('clientpage', data);
 	});
 });

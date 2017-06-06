@@ -7,7 +7,7 @@ $(document).ready(function() {
 			method: 'DELETE'
 		})
 		.then(function(res){
-			res.render('manageclient');
+			res.flash('success_msg', 'The Client has been deleted.');
 		})
 	});
 })

@@ -9,6 +9,7 @@ const session = require('express-session');
 const passport = require('passport');
 const UserStrategy = require('passport-local').Strategy;
 const mongo = require('mongodb');
+const MongoStore = require('connect-mongo') (session);
 const mongoose = require('mongoose');
 const morgan = require('morgan');
 
@@ -41,8 +42,10 @@ app.use(express.static(path.join(__dirname, 'public')));
 // Express Session
 app.use(session({
 	secret: 'random string',
-	saveUninitialized: true,
-	resave: true
+	store: new MongoStore({
+    url: DATABASE_URL,
+    autoRemove: 'native'
+  })
 }));
 
 // Passport init
