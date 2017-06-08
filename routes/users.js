@@ -10,6 +10,19 @@ const User = require('../models/userschema');
 const Client = require('../models/clientschema');
 const DATABASE_URL = require('../config');
 
+// Finds Client by Id
+const clientLoader = function(req, res, next) {
+  Client.findById(req.params.clientId)
+  .then(function(client) {
+    req.vsClient = client;
+    next();
+  })
+  .catch(function(err){
+    console.log(error);
+    res.sendStatus(404);
+  });
+};
+
 // Function to ensure non users can't get into user functions
 function ensureAuthenticated(req, res, next){
 	if(req.isAuthenticated()){
@@ -53,10 +66,8 @@ router.get('/clientlist', function(req, res){
 });
 
 // Get Client by id
-router.get('/clientlist/:id', function(req, res) {
-	Client.getClientById(req.params.id, function (err, data) {
-			res.render('clientpage', data);
-	});
+router.get('/clientlist/:clientId', clientLoader, function(req, res) {
+	res.render('clientpage', req.vsClient);
 });
 
 // Register New User
@@ -119,7 +130,7 @@ router.post('/registerclient', function(req, res) {
 		Client.createClient(newClient)
 		.then(function(client){
 			req.flash('success_msg', 'Your client has been registered');
-			res.redirect('/clientlist');
+			res.redirect('/users/clientlist');
 		})
 		.catch(function(err) {
 			console.error(err);
@@ -130,8 +141,8 @@ router.post('/registerclient', function(req, res) {
 });
 
 // Update Client
-router.put('/clientlist/:_id', ensureAuthenticated, function(req, res) {
-	Client.findById(req.params._id, function (err, client) {  
+router.put('/clientlist/:clientId', ensureAuthenticated, function(req, res) {
+	Client.findById(req.params.clientId, function (err, client) {  
 	    if (err) {
 	        res.status(500).send(err);
 	    } else {

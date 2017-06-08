@@ -124,3 +124,7 @@ h2 {
 form label {
   color: #001998;
 }
+
+.form-msg .hidden {
+  display: none;
+}

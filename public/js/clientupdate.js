@@ -10,13 +10,18 @@ $(document).ready(function() {
 			logo: updateLogo,
 			videos: updateVideos
 		}
-		$.ajax({
+		var request = $.ajax({
 			url: '/users/clientlist/' + clientToUpdate,
 			method: 'PUT', 
 			data: updateData
-		})
-		.then(function(res){
-			console.log(res);
+		});
+
+		request.done(function(event) {
+			window.location.href = "/users/clientlist";
+		});
+
+		request.fail(function(event) {
+			$('#update-error-msg').removeClass('hidden');
 		})
 	});
 })

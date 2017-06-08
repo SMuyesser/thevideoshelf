@@ -44,7 +44,7 @@ app.use(session({
 	secret: 'random string',
 	store: new MongoStore({
     url: DATABASE_URL,
-    autoRemove: 'native'
+    autoRemove: 'n'
   })
 }));
 
@@ -89,8 +89,6 @@ app.use('/users', users);
 /*app.use('/clients', clients);
 */
 mongoose.Promise = global.Promise;
-
-
 
 // closeServer needs access to a server object, but that only
 // gets created when `runServer` runs, so declare `server` here
