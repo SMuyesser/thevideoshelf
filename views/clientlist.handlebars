@@ -1,9 +1,48 @@
 <h2 class="page-header">Client List</h2>
-<p class="page-header">Select a client to view</p>
-
-
 {{#each clients}}
-	<a href="http://localhost:3000/users/clientlist/{{this.id}}"><img src="{{this.logo}}" alt="{{this.name}} logo" style="width: 100px; height: 100px;">
-	{{this.name}}</br></a>
+	<div class="client-container">
+		<div class="client">
+			<img src="{{logo}}" alt="{{name}} logo" style="width: 100px; height: 100px;">
+			<h2>{{name}}</h2></br>
+			<p>Client ID: {{id}}</p>
+			<p>Video Count: {{videos.length}}</p>
+			<ul class="client-btn js-client-btn">
+				<li><a href="http://localhost:3000/users/clientlist/{{id}}"><button type="submit" class="btn btn-success js-view-client-btn">View Client</button></a></li>
+				<li><button type="submit" class="btn btn-warning js-update-client-btn">Update Client</button></li>
+				<li><button type="submit" class="btn btn-danger js-delete-client-btn">Delete Client</button></li>
+			</ul></br>
+		</div>
+
+		<div class="delete-client hidden">
+			<h3>Delete Client</h3>
+			<form method="delete" id="js-client-delete-form">
+				<div class="form-group">
+					<label>Confirm deletion of:</label>
+				<input type="text" class="form-control" id="js-confirm-delete" value="{{id}}">
+				</div>
+				<button type="submit" class="btn btn-primary delete-btn">Submit</button>
+			</form>
+		</div>
+
+		<div class="update-client hidden">
+			<h3>Client To Be Updated</h3>
+			<form method="put" id="js-client-update-form">
+				<div class="form-group">
+					<input type="text" class="form-control" id="js-client-to-update" value="{{id}}">
+					<label>Update Name</label>
+					<input type="text" class="form-control" placeholder="Name" id="js-update-name" name="updatedName">
+					<label>Update Logo</label>
+					<input type="text" class="form-control" placeholder="Logo" id="js-update-logo" name="updatedLogo">
+					<label>Update Videos</label>
+					<input type="text" class="form-control" placeholder="Videos" id="js-update-videos" name="updatedVideos">
+				</div>
+				<button type="submit" class="btn btn-primary update-btn">Submit</button>
+			</form>
+		</div>
+	</div>
 {{/each}}
+
+<script type="text/javascript" src="/js/clientdelete.js"></script>
+<script type="text/javascript" src="/js/clientupdate.js"></script>
+
 

@@ -19,9 +19,18 @@ const ClientSchema = mongoose.Schema({
 	}
 });
 
+ClientSchema.methods.vimeoIds = function() {
+	return this.videos.map(getVimeoId)
+}
+
 const Client = module.exports = mongoose.model('Client', ClientSchema);
 
 // Model Functions
+const getVimeoId = (vimeoURL) => {
+  const splitArr = vimeoURL.split("/");
+  return splitArr[3]
+}
+
 // Create client
 module.exports.createClient = function(client) {
 		return client.save();

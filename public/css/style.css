@@ -114,6 +114,7 @@ html {
 }
 
 #js-client-update-form input {
+  width: ;
   margin-bottom: 5px;
 }
 
@@ -127,4 +128,25 @@ form label {
 
 .form-msg .hidden {
   display: none;
+}
+
+div.client {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+div.client ul {
+  list-style: none;
+}
+
+div.client button {
+  height: 35px;
+  width: 115px;
+  margin-bottom: 2px;
+}
+
+div.client-container {
+  padding: 10px;
+  border-bottom: 2px solid #C2C2C2;
 }

@@ -49,14 +49,6 @@ router.get('/registerclient', ensureAuthenticated, function(req, res){
 	res.render('registerclient');
 });
 
-// Render Manage Client 
-router.get('/manageclient', ensureAuthenticated, function(req, res){
-	Client.find()
-	.then(function(clients) {
-		res.render('manageclient', {clients});
-	})
-});
-
 // Render Clientlist
 router.get('/clientlist', function(req, res){
 	Client.find()
@@ -141,8 +133,8 @@ router.post('/registerclient', function(req, res) {
 });
 
 // Update Client
-router.put('/clientlist/:clientId', ensureAuthenticated, function(req, res) {
-	Client.findById(req.params.clientId, function (err, client) {  
+router.put('/clientlist/:_id', ensureAuthenticated, function(req, res) {
+	Client.findById(req.params._id, function (err, client) {  
 	    if (err) {
 	        res.status(500).send(err);
 	    } else {
