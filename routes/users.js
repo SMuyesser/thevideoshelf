@@ -50,11 +50,16 @@ router.get('/registerclient', ensureAuthenticated, function(req, res){
 });
 
 // Render Clientlist
-router.get('/clientlist', function(req, res){
+router.get('/clientlist', ensureAuthenticated, function(req, res){
 	Client.find()
 	.then(function(clients){
 		res.render('clientlist', {clients});
 	})
+});
+
+// Render Edit Client
+router.get('/editclient/:clientId', ensureAuthenticated, clientLoader, function(req, res){
+	res.render('editclient', req.vsClient);
 });
 
 // Get Client by id
@@ -102,7 +107,7 @@ router.post('/register', function(req, res) {
 // Register New Client
 router.post('/registerclient', function(req, res) {
 	const {name, logo, videos, createdBy} = req.body;
-
+	console.log(req.body);
 	// Validation
 	req.checkBody('name', 'Client name is required').notEmpty();
 	/*req.checkBody('clientLogo', 'Client logo must be an image').isImage();*/
@@ -115,11 +120,11 @@ router.post('/registerclient', function(req, res) {
 			errors: errors
 		});
 	} else {
-		const newClient = new Client({name, logo, videos, createdBy});
+		const newClient = new Client({name, logo, videos, createdBy: req.user});
 
 		// Creates mongoose new client, then success message and redirect to login
 		console.log(newClient);
-		Client.createClient(newClient)
+		newClient.save()
 		.then(function(client){
 			req.flash('success_msg', 'Your client has been registered');
 			res.redirect('/users/clientlist');

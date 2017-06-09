@@ -31,11 +31,6 @@ const getVimeoId = (vimeoURL) => {
   return splitArr[3]
 }
 
-// Create client
-module.exports.createClient = function(client) {
-		return client.save();
-}
-
 module.exports.getClientByName = function(name, callback){
 	const query = {name: name};
 	Client.findOne(query, callback);

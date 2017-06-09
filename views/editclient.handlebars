@@ -1,0 +1,19 @@
+<h3 class="page-header">Client To Be Updated</h3>
+<form method="put" id="js-client-update-form">
+	<div class="form-group">
+		<input type="text" class="form-control" id="js-client-to-update" value="{{id}}">
+		<label>Update Name</label>
+		<input type="text" class="form-control" placeholder="Name" id="js-update-name" name="updatedName" value="{{name}}">
+		<label>Update Logo</label>
+		<input type="text" class="form-control" placeholder="Logo" id="js-update-logo" name="updatedLogo" value="{{logo}}">
+		<div class="update-video-group">
+		{{#each videos}}
+			<label>Update Videos</label>
+			<input type="text" class="form-control" placeholder="Videos" id="js-update-videos1" value="{{this}}" name="updatedVideos[]">
+		{{/each}}
+		</div>
+	</div>
+	<button type="submit" class="btn btn-primary update-btn">Submit</button>
+</form>
+
+<script type="text/javascript" src="/js/clientupdate.js"></script>

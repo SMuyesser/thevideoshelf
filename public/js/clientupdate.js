@@ -3,6 +3,9 @@ $(document).ready(function() {
 		event.preventDefault();
 		$(this).parent().parent().parent().siblings().closest('div.update-client').toggleClass('hidden');
 	});
+	
+	$('div.update-video-group').append('<input type="text" class="form-control" placeholder="Enter Video Url" id="'+j+'" name="videos[]">')
+
 
 	$('div.update-client form#js-client-update-form').on('submit', function(event){
 		event.preventDefault();
