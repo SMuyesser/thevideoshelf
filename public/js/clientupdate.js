@@ -1,9 +1,4 @@
-$(document).ready(function() {
-	$('ul.js-client-btn').on('click', 'button.js-update-client-btn', function(event){
-		event.preventDefault();
-		$(this).parent().parent().parent().siblings().closest('div.update-client').toggleClass('hidden');
-	});
-	
+$(document).ready(function() {	
 	$('form#js-client-update-form').on('submit', function(event){
 		event.preventDefault();
 		var clientToUpdate = $(this).children().children().closest('input').val();
@@ -37,5 +32,12 @@ $(document).ready(function() {
 		request.fail(function(event) {
 			$('#update-error-msg').removeClass('hidden');
 		})
+	});
+
+
+	$('div.update-video-group').on('click', 'button.js-client-page-remove-vid-btn', function(event){
+		const btnNumber = $(this).attr('id');
+		$(this).siblings().closest('input#video-'+btnNumber+'').val("");
+		$(this).siblings().closest('input#video-'+btnNumber+'').attr('placeholder', 'The Video Will Be Deleted After Submit Below');
 	});
 })

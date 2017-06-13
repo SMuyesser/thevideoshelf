@@ -8,7 +8,7 @@ $(document).ready(function() {
 	});
 
 	$('button#update-add-video-btn').click(function(event){
-		$('div.update-video-group').append('<label style="margin-top: 10px;">Add Video</label></br><input style="width: 88%; display: inline-block; margin-right: 2%;" type="text" class="form-control" placeholder="Enter Video Url" name="updatedVideos[]"><button type="button" style="display: inline-block; width: 10%" class="btn btn-danger" id="removeMoreUpdateVideos-btn">Remove</button></br>');
+		$('div.update-video-group').append('<label style="margin-top: 10px;">Add Video</label></br><input style="width: 87%; display: inline-block; margin-right: 2%;" type="text" class="form-control" placeholder="Enter Video Url" name="updatedVideos[]"><button type="button" style="display: inline-block; width: 10%" class="btn btn-danger" id="removeMoreUpdateVideos-btn">Remove</button></br>');
 	});
 
 	$('div.update-video-group').on('click', 'button#removeMoreUpdateVideos-btn', function(event){
@@ -18,5 +18,4 @@ $(document).ready(function() {
 		$('br').last().remove();
 		$(this).closest('button#removeMoreUpdateVideos-btn').last().remove();
 	});
-
 })
