@@ -156,6 +156,17 @@ div.client-list-text {
   flex-direction: column;
 }
 
+.footer {
+  text-align: center;
+  line-height: 2em;
+}
+
+
+
+/******************************************************************
+  CLIENTPAGE.HANDLEBARS
+******************************************************************/
+
 div.client-page-header {
   display: flex;
   align-items: center;
@@ -176,4 +187,17 @@ div.client-page-header ul#client-page-requests {
 
 ul#client-page-requests li {
   margin-bottom: 3px;
+}
+
+
+
+/******************************************************************
+  EDITCLIENT.HANDLEBARS
+******************************************************************/
+
+img#update-client-img,
+h2#update-client-name {
+  display: inline-block;
+  margin-bottom: 35px;
+  margin-right: 5%
 }

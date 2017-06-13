@@ -7,6 +7,7 @@
 				<h2>{{name}}</h2></br>
 				<p>Client ID: {{id}}</p>
 				<p>Video Count: {{videos.length}}</p>
+				<p>Client Representative: {{createdBy}}</p>
 			</div>
 			<ul class="client-btn js-client-btn">
 				<li><a href="/users/clientlist/{{id}}"><button type="button" class="btn btn-success js-view-client-btn">View Client</button></a></li>
@@ -19,7 +20,7 @@
 			<h3>Delete Client</h3>
 			<form method="delete" id="js-client-delete-form">
 				<div class="form-group">
-					<label>Confirm {{name}}'s Client ID Matches To Delete</label>
+					<label>Confirm {{name}}'s Client ID Matches Below To Delete {{name}}</label>
 				<input type="text" class="form-control" id="js-confirm-delete" value="{{id}}" readonly>
 				</div>
 				<button type="submit" class="btn btn-primary delete-btn">Confirm Delete</button>

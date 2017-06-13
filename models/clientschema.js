@@ -15,7 +15,8 @@ const ClientSchema = mongoose.Schema({
 	],
 	// find the id of the the user who registered this client
 	createdBy: {
-		type: mongoose.Schema.Types.ObjectId, ref: 'User'
+		type: mongoose.Schema.Types.ObjectId, 
+		ref: 'User'
 	}
 });
 
