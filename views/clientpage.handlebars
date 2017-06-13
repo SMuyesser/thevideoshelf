@@ -1,5 +1,14 @@
-<h2 class="page-header"><img src="{{this.logo}}" alt="{{this.name}} logo" style="width: 100px; height: 100px;">
-{{this.name}}</h2>
+<div class="client-page-header page-header">
+	<div id="logo-name-group">
+		<img id="client-page-logo" src="{{this.logo}}" alt="{{this.name}} logo" style="width: 100px; height: 100px;">
+		<h2 id="client-page-name">{{this.name}}</h2>
+	</div>
+	<ul id="client-page-requests">
+	<li>Request Further Filming</li>
+	<li>Request Highlight Reel</li>
+	<li>Request DVD Copies. Enter Amount</li>
+	</ul>
+</div>
 
 {{#each vimeoIds}}
 	<div class="vimeoVideo">
@@ -7,6 +16,3 @@
 	</div>
 {{/each}}
 
-<p>Request Further Filming</p>
-<p>Request Highlight Reel</p>
-<p>Request DVD Copies. Enter Amount</p>

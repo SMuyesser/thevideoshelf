@@ -4,8 +4,6 @@ $(document).ready(function() {
 		$(this).parent().parent().parent().siblings().closest('div.update-client').toggleClass('hidden');
 	});
 	
-
-
 	$('form#js-client-update-form').on('submit', function(event){
 		event.preventDefault();
 		var clientToUpdate = $(this).children().children().closest('input').val();
@@ -14,7 +12,10 @@ $(document).ready(function() {
 		var updateVideos = [];
 		$(this).children().children().closest('div.update-video-group').children().closest('input[name="updatedVideos[]"]')
 		.each(function() {
-			updateVideos.push($(this).val());
+			var url = $(this).val();
+			if (url.length > 0) {
+				updateVideos.push(url);
+			}
 		});
 		
 		var updateData = {

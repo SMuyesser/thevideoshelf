@@ -152,6 +152,28 @@ div.client-container {
 }
 
 div.client-list-text {
-  dispay: flex;
+  display: flex;
   flex-direction: column;
+}
+
+div.client-page-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px;
+}
+
+img#client-page-logo,
+h2#client-page-name {
+  display: inline-block;
+}
+
+div.client-page-header ul#client-page-requests {
+  float: right;
+  display: inline;
+  list-style: none;
+}
+
+ul#client-page-requests li {
+  margin-bottom: 3px;
 }
