@@ -23,6 +23,7 @@ $(document).ready(function() {
 			logo: updateLogo,
 			videos: updateVideos
 		}
+
 		var request = $.ajax({
 			url: '/users/clientlist/' + clientToUpdate,
 			method: 'PUT', 

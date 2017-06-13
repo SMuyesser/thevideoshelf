@@ -8,8 +8,10 @@ body {
   margin-right: auto;
   margin-top: 0;
   margin-bottom: 0;
-  color: #1B40FC;
+  color: #E6E2E2;
+  font-family: 'Kreon', serif;
 }
+
 
 /* Everything but the jumbotron gets side spacing for mobile first views */
 .header,
@@ -29,12 +31,13 @@ body {
   margin-top: 0;
   margin-bottom: 0;
   line-height: 40px;
+  color: white;
 }
 
 /* Custom page footer */
 .footer {
   padding-top: 19px;
-  color: #777;
+  color: #B7BB42;
 }
 
 /* Customize container */
@@ -85,15 +88,11 @@ body {
 }
 
 .page-header {
-  	margin-top: 0px;
+    margin-top: 0px;
   }
 
 div.container div.row footer {
-	margin-top: 40px;
-}
-
-html {
-  background-color: #2AA5D8;
+  margin-top: 40px;
 }
 
 .vertical-center {
@@ -119,11 +118,11 @@ html {
 }
 
 h2 {
-  color: black;
+  color: #FFF000;
 }
 
 form label {
-  color: #001998;
+  color: #C4BF37;
 }
 
 .form-msg .hidden {
@@ -164,6 +163,46 @@ div.client-list-text {
 
 
 /******************************************************************
+  NAV
+******************************************************************/
+
+nav ul.nav li a {
+  color: #D2BE4C;
+}
+
+
+
+/******************************************************************
+  BACKGROUND COLORS
+******************************************************************/
+
+html {
+  background-color: #8A8989;
+}
+
+body {
+  background: url('../images/atmbackground.jpeg');
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+div.background {
+  background-color: #2E2E2E;
+}
+
+
+
+/******************************************************************
+  CLIENTLIST.HANDLEBARS
+******************************************************************/
+
+div.client img {
+  margin-right: 25px;
+}
+
+
+
+/******************************************************************
   CLIENTPAGE.HANDLEBARS
 ******************************************************************/
 
@@ -177,6 +216,7 @@ div.client-page-header {
 img#client-page-logo,
 h2#client-page-name {
   display: inline-block;
+  margin-right: 20px;
 }
 
 div.client-page-header ul#client-page-requests {
@@ -189,7 +229,10 @@ ul#client-page-requests li {
   margin-bottom: 3px;
 }
 
-
+iframe {
+  margin-bottom: 15px;
+  width: 100%;
+}
 
 /******************************************************************
   EDITCLIENT.HANDLEBARS
