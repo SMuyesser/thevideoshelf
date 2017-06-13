@@ -150,3 +150,8 @@ div.client-container {
   padding: 10px;
   border-bottom: 2px solid #C2C2C2;
 }
+
+div.client-list-text {
+  dispay: flex;
+  flex-direction: column;
+}

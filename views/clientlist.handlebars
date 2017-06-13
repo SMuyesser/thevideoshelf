@@ -3,9 +3,11 @@
 	<div class="client-container">
 		<div class="client">
 			<img src="{{logo}}" alt="{{name}} logo" style="width: 100px; height: 100px;">
-			<h2>{{name}}</h2></br>
-			<p>Client ID: {{id}}</p>
-			<p>Video Count: {{videos.length}}</p>
+			<div class='client-list-text'>
+				<h2>{{name}}</h2></br>
+				<p>Client ID: {{id}}</p>
+				<p>Video Count: {{videos.length}}</p>
+			</div>
 			<ul class="client-btn js-client-btn">
 				<li><a href="/users/clientlist/{{id}}"><button type="button" class="btn btn-success js-view-client-btn">View Client</button></a></li>
 				<li><a href="/users/editclient/{{id}}"><button type="button" class="btn btn-warning js-update-client-btn">Update Client</button></a></li>
@@ -17,10 +19,10 @@
 			<h3>Delete Client</h3>
 			<form method="delete" id="js-client-delete-form">
 				<div class="form-group">
-					<label>Confirm deletion of:</label>
+					<label>Confirm {{name}}'s Client ID Matches To Delete</label>
 				<input type="text" class="form-control" id="js-confirm-delete" value="{{id}}">
 				</div>
-				<button type="submit" class="btn btn-primary delete-btn">Submit</button>
+				<button type="submit" class="btn btn-primary delete-btn">Confirm Delete</button>
 			</form>
 		</div>
 	</div>

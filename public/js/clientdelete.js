@@ -1,6 +1,13 @@
 $(document).ready(function() {
+
 	$('ul.js-client-btn').on('click', 'button.js-delete-client-btn', function(event){
 		event.preventDefault();
+		$.fn.extend({
+		    toggleText: function(a, b){
+		        return this.text(this.text() == b ? a : b);
+		    }
+		});
+		$(this).closest('button.js-delete-client-btn').toggleText('Delete Client', 'Undo Delete');
 		$(this).parent().parent().parent().siblings().closest('div.delete-client').toggleClass('hidden');
 	});
 
