@@ -1,6 +1,9 @@
 <h3 class="page-header">Client To Be Updated</h3>
+<img src="{{logo}}" alt="{{name}} logo" style="width: 100px; height: 100px;">
+<h2>{{name}}</h2>
 <form method="put" id="js-client-update-form">
 	<div class="form-group">
+		<label>ID</label>
 		<input type="text" class="form-control" id="js-client-to-update" value="{{id}}">
 		<label>Update Name</label>
 		<input type="text" class="form-control" placeholder="Name" id="js-update-name" name="updatedName" value="{{name}}">
@@ -9,11 +12,13 @@
 		<div class="update-video-group">
 		{{#each videos}}
 			<label>Update Videos</label>
-			<input type="text" class="form-control" placeholder="Videos" id="js-update-videos1" value="{{this}}" name="updatedVideos[]">
+			<input type="text" class="form-control" placeholder="Enter Video Url" id="js-update-videos1" value="{{this}}" name="updatedVideos[]">
 		{{/each}}
 		</div>
 	</div>
+	<button type="button" class="btn btn-warning addVid-btn" id="update-add-video-btn">Add Video</button>
 	<button type="submit" class="btn btn-primary update-btn">Submit</button>
 </form>
 
 <script type="text/javascript" src="/js/clientupdate.js"></script>
+<script type="text/javascript" src="/js/addMoreVideos.js"></script>

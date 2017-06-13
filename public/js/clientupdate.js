@@ -4,15 +4,19 @@ $(document).ready(function() {
 		$(this).parent().parent().parent().siblings().closest('div.update-client').toggleClass('hidden');
 	});
 	
-	$('div.update-video-group').append('<input type="text" class="form-control" placeholder="Enter Video Url" id="'+j+'" name="videos[]">')
 
 
-	$('div.update-client form#js-client-update-form').on('submit', function(event){
+	$('form#js-client-update-form').on('submit', function(event){
 		event.preventDefault();
 		var clientToUpdate = $(this).children().children().closest('input').val();
 		var updateName = $(this).children().children().closest('#js-update-name').val();
 		var updateLogo = $(this).children().children().closest('#js-update-logo').val();
-		var updateVideos = $(this).children().children().closest('#js-update-videos').val();
+		var updateVideos = [];
+		$(this).children().children().closest('div.update-video-group').children().closest('input[name="updatedVideos[]"]')
+		.each(function() {
+			updateVideos.push($(this).val());
+		});
+		
 		var updateData = {
 			name: updateName,
 			logo: updateLogo,
