@@ -17,8 +17,7 @@ const {DATABASE_URL, PORT} = require('./config');
 const routes = require('./routes/index');
 const users = require('./routes/users');
 const manager = require('./routes/manager');
-/*const clients = require('./routes/clients');
-*/
+
 // Initialize App & use morgan
 const app = express();
 app.use(morgan('common'));

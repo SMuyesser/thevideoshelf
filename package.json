@@ -19,6 +19,8 @@
     "express-session": "^1.15.3",
     "express-validator": "^3.2.0",
     "faker": "^4.1.0",
+    "handlebars": "^4.0.10",
+    "handlebars-helpers": "^0.8.2",
     "jade": "~1.11.0",
     "mongoose": "^4.10.0",
     "morgan": "~1.8.1",
