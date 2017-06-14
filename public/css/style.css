@@ -12,6 +12,9 @@ body {
   font-family: 'Kreon', serif;
 }
 
+button.btn {
+  color: #F0F0F0;
+}
 
 /* Everything but the jumbotron gets side spacing for mobile first views */
 .header,
@@ -118,7 +121,7 @@ div.container div.row footer {
 }
 
 h2 {
-  color: #FFF000;
+  color: #D2BE4C;
 }
 
 form label {
@@ -167,7 +170,7 @@ div.client-list-text {
 ******************************************************************/
 
 nav ul.nav li a {
-  color: #D2BE4C;
+  color: #FFF000;
 }
 
 
@@ -200,6 +203,13 @@ div.client img {
   margin-right: 25px;
 }
 
+div.client-list-text p {
+  margin-bottom: 2px;
+}
+
+h2.page-header {
+  color: #FFF000;
+}
 
 
 /******************************************************************
