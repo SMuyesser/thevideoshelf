@@ -1,6 +1,5 @@
 <h2 class="page-header">Client List</h2>
 {{#each clients}}
-{{user.id}}
 	<div class="client-container">
 		<div class="client">
 			<img src="{{logo}}" alt="{{name}} logo" style="width: 100px; height: 100px;">
@@ -8,7 +7,7 @@
 				<h2>{{name}}</h2></br>
 				<p>Client ID: {{id}}</p>
 				<p>Video Count: {{videos.length}}</p>
-				<p>Client Representative: {{createdBy}}</p>
+				<p>Client Representative: {{createdBy.name}}</p>
 			</div>
 			<ul class="client-btn js-client-btn">
 				<li><a href="/users/clientlist/{{id}}"><button type="button" class="btn btn-success js-view-client-btn">View Client</button></a></li>
@@ -30,6 +29,5 @@
 	</div>
 {{/each}}
 <script type="text/javascript" src="/js/clientdelete.js"></script>
-<script type="text/javascript" src="/js/handlebars-helper.js"></script>
 
 

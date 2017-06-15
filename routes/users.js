@@ -51,10 +51,18 @@ router.get('/registerclient', ensureAuthenticated, function(req, res){
 
 // Render Clientlist
 router.get('/clientlist', ensureAuthenticated, function(req, res){
-	Client.find()
-	.then(function(clients){
-		res.render('clientlist', {clients});
-	})
+	if (req.user.manager) {
+		Client.find()
+		.populate('createdBy')
+		.then(function(clients){
+			res.render('clientlist', {clients});
+		})
+	} else {
+		Client.find({createdBy: req.user})
+		.then(function(clients){
+			res.render('clientlist', {clients});
+		})
+	}
 });
 
 // Render Edit Client
@@ -174,9 +182,11 @@ router.delete('/clientlist/:_id', ensureAuthenticated, function(req, res) {
 passport.use(new UserStrategy(
   	function(username, password, done) {
   		// Check if there is a user match
+  		console.log([username, password]);
   		User.getUserByUsername(username, function(err, user){
   			if(err) throw err;
   			if(!user){
+  				console.log('unknown user');
   				return done(null, false, {message: 'Unknown User'});
   			}
 
@@ -186,6 +196,7 @@ passport.use(new UserStrategy(
   				if(isMatch){
   					return done(null, user);
   				} else {
+  					console.log('invalid password');
   					return done(null, false, {message: 'Invalid password'});
   				}
   			});
