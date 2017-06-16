@@ -182,25 +182,23 @@ router.delete('/clientlist/:_id', ensureAuthenticated, function(req, res) {
 passport.use(new UserStrategy(
   	function(username, password, done) {
   		// Check if there is a user match
-  		console.log([username, password]);
-  		User.getUserByUsername(username, function(err, user){
-  			if(err) throw err;
+  		User.getUserByUsername(username)
+  		.then(function(user){
   			if(!user){
-  				console.log('unknown user');
   				return done(null, false, {message: 'Unknown User'});
   			}
 
   			// If there is a match, continue to code below
-  			User.comparePassword(password, user.password, function(err, isMatch){
-  				if(err) throw err;
-  				if(isMatch){
-  					return done(null, user);
-  				} else {
-  					console.log('invalid password');
-  					return done(null, false, {message: 'Invalid password'});
+  			User.comparePassword(password, user.password)
+  				.then(function(isMatch){
+  					if(isMatch){
+  						return done(null, user);
+  					} else {
+  						return done(null, false, {message: 'Invalid password'});
   				}
   			});
-  		});
+  		})
+  		.catch((err) => { throw err });
 	}
 ));
 
@@ -209,7 +207,7 @@ passport.serializeUser(function(user, done) {
 });
 
 passport.deserializeUser(function(id, done) {
-	User.getUserById(id, function(err, user) {
+	User.findById(id, function(err, user) {
 		done(err, user);
 	});
 });

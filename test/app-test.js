@@ -19,8 +19,8 @@ function generateUserInfo() {
   return {
     name: faker.name.firstName(),
     username: faker.name.lastName(),
-    email: faker.name.firstName(),
-    password: faker.name.lastName()
+    email: faker.internet.email(),
+    password: faker.random.word()
   }
 }
 
@@ -62,7 +62,7 @@ describe('thevideoshelfdb tests', function() {
 
   describe('GET endpoint', function() {
 
-    it('should login as manager', function () {
+    it.skip('should login as manager', function () {
       return chai.request.agent(app)
       .post('/users/login')
       .type('form')
@@ -90,15 +90,12 @@ describe('thevideoshelfdb tests', function() {
     });
 
     it.skip('should return all existing users', function() {
-      let res;
       return chai.request(app)
         .get('/manager/userlist')
-        .then(function(_res) {
-          res = _res;
-          console.log(res.body);
-          res.should.redirect;
-          res.should.have.status(200);
-          res.body.should.have.length.of.at.least(1);
+        .then(function(res) {
+          console.log(res.body[0]);
+          res.body.should.have.status(200);
+          res.body[0].should.have.length.of.at.least(1);
           return User.count();
         })
         .then(function(count) {
@@ -114,7 +111,7 @@ describe('thevideoshelfdb tests', function() {
         .get('/manager/userlist')
         .then(function(res) {
           res.should.have.status(200);
-          res.should.be.json;
+          res.should.be.jsonp;
           res.body.should.be.a('array');
           res.body.should.have.length.of.at.least(1);
           res.body.forEach(function(user) {
@@ -193,7 +190,7 @@ describe('thevideoshelfdb tests', function() {
   });
 
   describe('DELETE endpoint', function() {
-    it.skip('delete a user by id', function() {
+    it('delete a user by id', function() {
 
       let user;
 

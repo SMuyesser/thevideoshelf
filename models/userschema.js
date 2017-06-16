@@ -21,7 +21,6 @@ const UserSchema = mongoose.Schema({
 	}
 });
 
-const User = module.exports = mongoose.model('User', UserSchema);
 
 // Model Functions
 UserSchema.pre('save', function(next) {
@@ -39,6 +38,8 @@ UserSchema.pre('save', function(next) {
   }
 });
 
+const User = module.exports = mongoose.model('User', UserSchema);
+
 module.exports.createUser = function(user) {
 	return bcrypt.genSalt(10)
 	.then(function(salt){
@@ -52,21 +53,13 @@ module.exports.createUser = function(user) {
 }
 
 // Gets username using mongoose method findone
-module.exports.getUserByUsername = function(username, callback){
+module.exports.getUserByUsername = function(username){
 	const query = {username: username};
-	User.findOne(query, callback);
-}
-
-
-module.exports.getUserById = function(id, callback){
-	User.findById(id, callback);
+	return User.findOne(query)
 }
 
 // checks to see if password is match
-module.exports.comparePassword = function(candidatePassword, hash, callback){
-	bcrypt.compare(candidatePassword, hash, function(err, isMatch) {
-		if(err) throw err;
-		callback(null, isMatch);
-	});
+module.exports.comparePassword = function(candidatePassword, hash){
+	return bcrypt.compare(candidatePassword, hash) 
 }
 

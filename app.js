@@ -3,13 +3,10 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const exphbs = require('express-handlebars');
-const Handlebars = require('handlebars');
-const helpers = require('handlebars-helpers');
 const expressValidator = require('express-validator');
 const flash = require('connect-flash');
 const session = require('express-session');
 const passport = require('passport');
-const UserStrategy = require('passport-local').Strategy;
 const mongo = require('mongodb');
 const MongoStore = require('connect-mongo') (session);
 const mongoose = require('mongoose');
@@ -19,8 +16,6 @@ const {DATABASE_URL, PORT} = require('./config');
 const routes = require('./routes/index');
 const users = require('./routes/users');
 const manager = require('./routes/manager');
-
-const array = helpers.array();
 
 // Initialize App & use morgan
 const app = express();
@@ -33,8 +28,6 @@ app.use(morgan('common'));
 app.set('views', path.join(__dirname, 'views'));
 app.engine('handlebars', exphbs({defaultLayout: 'layout'}));
 app.set('view engine', 'handlebars');
-Handlebars.registerHelper("ifCreatedByUser", function(createdBy, userId){
-});
 
 // BodyParser Middleware
 app.use(bodyParser.json());

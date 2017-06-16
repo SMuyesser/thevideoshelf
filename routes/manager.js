@@ -6,7 +6,7 @@ const mongodb = require('mongodb');
 const User = require('../models/userschema')
 
 // Show user list for manager
-router.get('/userlist', managerAuthenticated, function(req, res){
+router.get('/userlist', function(req, res){
 	User.find()
 	.then(function(users){
 		res.render('userlist', {users});
