@@ -38,6 +38,6 @@ $(document).ready(function() {
 	$('div.update-video-group').on('click', 'button.js-client-page-remove-vid-btn', function(event){
 		const btnNumber = $(this).attr('id');
 		$(this).siblings().closest('input#video-'+btnNumber+'').val("");
-		$(this).siblings().closest('input#video-'+btnNumber+'').attr('placeholder', 'The Video Will Be Deleted After Submit Below');
+		$(this).siblings().closest('input#video-'+btnNumber+'').attr('placeholder', 'This Video Will Be Deleted After Submit Below');
 	});
 })
