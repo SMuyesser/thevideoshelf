@@ -153,7 +153,7 @@ router.put('/clientlist/:_id', ensureAuthenticated, function(req, res) {
 	    } else {
 	        client.name = req.body.name || client.name;
 	        client.logo = req.body.logo || client.logo;
-	        client.videos = req.body.videos || client.videos;
+	        client.videos = req.body.videos;
 
 	        // Save the updated document back to the database
 	        client.save(function (err, client) {

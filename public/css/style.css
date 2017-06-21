@@ -178,7 +178,13 @@ img#shelf-icon {
   width: 10%;
   height: 10%;
   display: inline;
-  margin-right: 10px;
+  margin-right: 8px;
+}
+
+h3#vid-shelf-header {
+  border-top: 2px solid #FFF000;
+  border-bottom: 2px solid #FFF000;
+  line-height: 1.4em;
 }
 
 
@@ -202,7 +208,8 @@ body {
   CLIENTLIST.HANDLEBARS
 ******************************************************************/
 
-div.client img {
+div.client img,
+img#update-client-img {
   margin-right: 25px;
   border: 2px solid white;
   box-shadow: 2px 2px 3px black;

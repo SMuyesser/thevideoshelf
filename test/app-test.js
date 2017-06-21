@@ -4,6 +4,9 @@ const faker = require('faker');
 const mongoose = require('mongoose');
 const mocha = require('mocha');
 const assert = require('assert');
+const cheerio = require('cheerio');
+const chaiCheerio = require('chai-cheerio');
+const passport = require('passport');
 
 const should = chai.should();
 
@@ -12,6 +15,7 @@ const {TEST_DATABASE_URL} = require('../config');
 const {runServer, app, closeServer} = require('../app');
 
 chai.use(chaiHttp);
+chai.use(chaiCheerio);
 
 let manager;
 
@@ -20,7 +24,8 @@ function generateUserInfo() {
     name: faker.name.firstName(),
     username: faker.name.lastName(),
     email: faker.internet.email(),
-    password: faker.random.word()
+    password: "password123",
+    password2: "password123"
   }
 }
 
@@ -60,21 +65,7 @@ describe('thevideoshelfdb tests', function() {
     return closeServer();
   })
 
-  describe('GET endpoint', function() {
-
-    it.skip('should login as manager', function () {
-      return chai.request.agent(app)
-      .post('/users/login')
-      .type('form')
-      .send({
-        username: manager.username, 
-        password: manager.password})
-      .then(function(res) {
-        console.log(manager);
-        res.should.redirect;
-        res.should.redirectTo(`${res.request.protocol}//${res.request.host}/`);
-      })
-    });
+  describe('POST Manager login to users/login and get userlist', function() {
 
     it.skip('should not login as manager', function () {
       return chai.request(app)
@@ -89,78 +80,106 @@ describe('thevideoshelfdb tests', function() {
       })
     });
 
+    it.skip('should login as manager', function () {
+      return chai.request.agent(app)
+      .post('/users/login')
+      .type('form')
+      .send({
+        username: manager.username, 
+        password: manager.password})
+      .then(function(res) {
+        res.should.redirect;
+        res.should.redirectTo(`${res.request.protocol}//${res.request.host}/`);
+      })
+    });
+
+  });
+
+  describe('GET manager/userlist', function() {
+
     it.skip('should return all existing users', function() {
-      return chai.request(app)
+        return chai.request(app)
         .get('/manager/userlist')
-        .then(function(res) {
-          console.log(res.body[0]);
-          res.body.should.have.status(200);
-          res.body[0].should.have.length.of.at.least(1);
-          return User.count();
+        .then((res) => {
+          res.statusCode.should.equal(200);
+          res.type.should.equal('text/html');
+          const $ = cheerio.load(res.text);
+          $('div.user').should.exist;
+          $('div.user').length.should.equal(10);
         })
-        .then(function(count) {
-          res.body.should.have.length.of(count);
-        });
     });
 
+  });
 
-    it.skip('should return users with right fields', function() {
+  describe('GET Endpoints', function() {
+/*
+router.get('/clientlist', ensureAuthenticated, function(req, res){
+router.get('/editclient/:clientId', ensureAuthenticated, clientLoader, function(req, res){
+router.get('/clientlist/:clientId', clientLoader, function(req, res) {
+router.get('/logout', function(req, res){
+  */
 
-      let resUser;
+
+    it.skip('should render user register form', function() {
       return chai.request(app)
-        .get('/manager/userlist')
-        .then(function(res) {
-          res.should.have.status(200);
-          res.should.be.jsonp;
-          res.body.should.be.a('array');
-          res.body.should.have.length.of.at.least(1);
-          res.body.forEach(function(user) {
-            user.should.be.a('object');
-            user.should.include.keys(
-              '_id', 'name', 'email', 'password');
-          });
-          resUser = res.body[0];
-          return User.findById(resUser._id);
-        })
-        .then(function(user) {
-          resUser._id.should.equal((user._id).toString());
-          resUser.name.should.equal(user.name);
-          resUser.email.should.equal(user.email);
-          resUser.password.should.equal(user.password);
-        });
+      .get('/users/register')
+      .then((res) => {
+        res.statusCode.should.equal(200);
+        res.type.should.equal('text/html');
+        const $ = cheerio.load(res.text);
+        $('form#js-register-form').should.exist;
+      })
     });
+
+    it.skip('should render client register form', function() {
+      return chai.request(app)
+      .get('/users/registerclient')
+      .then((res) => {
+        res.statusCode.should.equal(200);
+        res.type.should.equal('text/html');
+        const $ = cheerio.load(res.text);
+        $('form').should.exist;
+      })
+    });
+
+    it.skip('should return all clients for current user', function() {
+      return chai.request(app)
+      .get('/users/clientlist')
+      .then((res) => {
+        res.statusCode.should.equal(200);
+        res.type.should.equal('text/html');
+        const $ = cheerio.load(res.text);
+      })
+    });
+
   });
 
   describe('POST endpoint', function() {
+
+/*router.post('/register', function(req, res) {
+router.post('/registerclient', function(req, res) {
+router.post('/login', */
+
+  
     it.skip('should add a new user', function() {
 
       const newUser = generateUserInfo();
 
       return chai.request(app)
-        .post('/manager/userlist')
+        .post('/users/register')
+        .type('form')
         .send(newUser)
         .then(function(res) {
           res.should.have.status(200);
-          res.should.be.json;
-          res.body.should.be.a('object');
-          res.body.should.include.keys(
-            '_id', 'name', 'email', 'password');
-          res.body._id.should.not.be.null;
-          res.body.name.should.equal(newUser.name);
-          res.body.email.should.equal(newUser.email);
-          res.body.password.should.equal(newUser.password);
-          return User.findById(res.body._id);
+          res.should.redirectTo(`${res.request.protocol}//${res.request.host}/users/login`);
         })
-        .then(function(user) {
-          user.name.should.equal(newUser.name);
-          user.email.should.equal(newUser.email);
-          user.password.should.equal(newUser.password);
-        });
     });
+
   });
 
   describe('PUT endpoint', function() {
-
+/*router.put('/clientlist/:_id', ensureAuthenticated, function(req, res) {
+*/
     it.skip('should update fields you send over', function() {
       const updateData = {
         name: 'update name',
@@ -190,7 +209,8 @@ describe('thevideoshelfdb tests', function() {
   });
 
   describe('DELETE endpoint', function() {
-    it('delete a user by id', function() {
+/*router.delete('/clientlist/:_id', ensureAuthenticated, function(req, res) {
+*/    it.skip('delete a user by id', function() {
 
       let user;
 
@@ -211,3 +231,10 @@ describe('thevideoshelfdb tests', function() {
     });
   });
 });
+
+
+
+
+
+
+

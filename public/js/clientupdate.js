@@ -1,4 +1,5 @@
-$(document).ready(function() {	
+$(document).ready(function() {
+
 	$('form#js-client-update-form').on('submit', function(event){
 		event.preventDefault();
 		var clientToUpdate = $(this).children().children().closest('input').val();
@@ -34,10 +35,27 @@ $(document).ready(function() {
 		})
 	});
 
-
 	$('div.update-video-group').on('click', 'button.js-client-page-remove-vid-btn', function(event){
 		const btnNumber = $(this).attr('id');
 		$(this).siblings().closest('input#video-'+btnNumber+'').val("");
 		$(this).siblings().closest('input#video-'+btnNumber+'').attr('placeholder', 'This Video Will Be Deleted After Submit Below');
 	});
+	
+	$('form#js-client-update-form').children().children().closest('div.update-video-group')
+	.children().closest('input[name="updatedVideos[]"]')
+	.each(function() {
+		var videoUrl = $(this).val();
+		var getIdFromUrl = (videoUrl) => {
+  			var splitArr = videoUrl.split("/");
+  			return splitArr[3]
+		}
+		var videoId = getIdFromUrl(videoUrl);
+		$.getJSON(videoUrl, {
+			'id': videoId
+		}, 
+		function(response){
+			return response;
+		})
+	});
+
 })

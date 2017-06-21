@@ -3,13 +3,21 @@ const router = express.Router();
 const mongoose = require('mongoose');
 const mongodb = require('mongodb');
 
-const User = require('../models/userschema')
+const User = require('../models/userschema');
+const Client = require('../models/clientschema');
+
 
 // Show user list for manager
-router.get('/userlist', function(req, res){
+router.get('/userlist', managerAuthenticated, function(req, res){
 	User.find()
 	.then(function(users){
-		res.render('userlist', {users});
+		console.log(users);
+		Client.find()
+		.then(function(clients){
+		console.log(clients);
+				res.render('userlist', {users, clients});
+			
+		})
 	})
 });
 

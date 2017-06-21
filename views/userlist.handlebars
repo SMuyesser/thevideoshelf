@@ -1,7 +1,8 @@
 <h2 class="page-header">User List</h2>
 
 {{#each users}}
-	{{name}}:
-	{{email}}</br>
-	</br>
+<div class="user">
+	<span class="user-name">{{name}}:</span>
+	<span class="user-email">{{email}}</span>
+</div>
 {{/each}}
