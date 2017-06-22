@@ -131,7 +131,6 @@ router.post('/registerclient', ensureAuthenticated, function(req, res) {
 		const newClient = new Client({name, logo, videos, createdBy: req.user});
 
 		// Creates mongoose new client, then success message and redirect to login
-		console.log(newClient);
 		newClient.save()
 		.then(function(client){
 			req.flash('success_msg', 'Your client has been registered');

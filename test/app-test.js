@@ -30,6 +30,18 @@ function generateUserInfo() {
   }
 }
 
+function generateClientInfo() {
+  return {
+    name: "Mock Client",
+    logo: "https://static.wixstatic.com/media/57c7c5_d544d255efc84c2092314374790b5bd6~mv2.jpeg/v1/fill/w_194,h_145,al_c,lg_1,q_80/57c7c5_d544d255efc84c2092314374790b5bd6~mv2.webp",
+    videos: [
+      "https://vimeo.com/221496191",
+      "https://vimeo.com/181664828",
+      "https://vimeo.com/181095436"
+    ]
+  }
+}
+
 function seedUserData() {
   console.info('seeding test user info');
   const seedData = [];
@@ -117,9 +129,38 @@ describe('thevideoshelfdb tests', function() {
 
   });
 
+  describe('Register new user', function(){
+
+    it.skip('should render user register form', function() {
+      return chai.request(app)
+      .get('/users/register')
+      .then((res) => {
+        res.statusCode.should.equal(200);
+        res.type.should.equal('text/html');
+        const $ = cheerio.load(res.text);
+        $('form#js-register-form').should.exist;
+      })
+    });
+
+    it.skip('should add a new user', function() {
+
+      const newUser = generateUserInfo();
+
+      return chai.request(app)
+        .post('/users/register')
+        .type('form')
+        .send(newUser)
+        .then(function(res) {
+          res.should.have.status(200);
+          res.should.redirectTo(`${res.request.protocol}//${res.request.host}/users/login`);
+        })
+    });
+    
+  });
+
   describe('GET manager/userlist', function() {
 
-    it.skip('should return all existing users as manager(pass)', function() {
+    it.skip('should return all existing users as manager', function() {
       const agent = chai.request.agent(app);
       return agent.post('/users/login')
       .type('form')
@@ -138,37 +179,7 @@ describe('thevideoshelfdb tests', function() {
       });
     });
 
-    it.skip('should not return all existing users if manager(fail)', function() {
-      const agent = chai.request.agent(app);
-      return agent.post('/users/login')
-      .type('form')
-      .send({
-        username: manager.username, 
-        password: manager.password+"banana"})
-      .then((res) => {
-        return agent.get('/manager/userlist')
-        .then((res) => {
-          res.statusCode.should.equal(200);
-          res.type.should.equal('text/html');
-          const $ = cheerio.load(res.text);
-          console.log(res.text);
-          $('div.user').should.not.exist;
-        });
-      });
-    });
-
-  });
- 
-
-  describe('GET Endpoints', function() {
-/*
-router.get('/clientlist', ensureAuthenticated, function(req, res){
-router.get('/editclient/:clientId', ensureAuthenticated, clientLoader, function(req, res){
-router.get('/clientlist/:clientId', clientLoader, function(req, res) {
-  */
-    
-
-    it.skip('should render user/clientlist', function() {
+    it.skip('should not return all existing users if not manager', function() {
       const agent = chai.request.agent(app);
       return agent.post('/users/login')
       .type('form')
@@ -176,71 +187,88 @@ router.get('/clientlist/:clientId', clientLoader, function(req, res) {
         username: user.username, 
         password: user.password})
       .then((res) => {
-        return agent.get('/users/clientlist')
+        return agent.get('/manager/userlist')
         .then((res) => {
           res.statusCode.should.equal(200);
           res.type.should.equal('text/html');
           const $ = cheerio.load(res.text);
-          console.log(res.text);
+          $('div.user').should.not.exist;
         });
       });
     });
 
-    it.skip('should render user register form', function() {
-      return chai.request(app)
-      .get('/users/register')
-      .then((res) => {
-        res.statusCode.should.equal(200);
-        res.type.should.equal('text/html');
-        const $ = cheerio.load(res.text);
-        $('form#js-register-form').should.exist;
-      })
-    });
-
-    it.skip('should render client register form', function() {
-      return chai.request(app)
-      .get('/users/registerclient')
-      .then((res) => {
-        res.statusCode.should.equal(200);
-        res.type.should.equal('text/html');
-        const $ = cheerio.load(res.text);
-        $('form').should.exist;
-      })
-    });
-
-    it.skip('should return all clients for current user', function() {
-      return chai.request(app)
-      .get('/users/clientlist')
-      .then((res) => {
-        res.statusCode.should.equal(200);
-        res.type.should.equal('text/html');
-        const $ = cheerio.load(res.text);
-      })
-    });
-
   });
 
-  describe('POST endpoint', function() {
-
-/*router.post('/register', function(req, res) {
-router.post('/registerclient', function(req, res) {
-router.post('/login', */
-
-  
-    it.skip('should add a new user', function() {
-
-      const newUser = generateUserInfo();
-
-      return chai.request(app)
-        .post('/users/register')
-        .type('form')
-        .send(newUser)
-        .then(function(res) {
-          res.should.have.status(200);
-          res.should.redirectTo(`${res.request.protocol}//${res.request.host}/users/login`);
-        })
+  describe('Post new client and get clientlist', function() {
+/*
+router.get('/editclient/:clientId', ensureAuthenticated, clientLoader, function(req, res){
+router.get('/clientlist/:clientId', clientLoader, function(req, res) {
+  */
+    it.skip('should render client register form', function() {
+      const agent = chai.request.agent(app);
+      return agent.post('/users/login')
+      .type('form')
+      .send({
+        username: user.username, 
+        password: user.password})
+      .then((res) => {
+        return agent.get('/users/registerclient')
+        .then((res) => {
+          res.statusCode.should.equal(200);
+          res.type.should.equal('text/html');
+          const $ = cheerio.load(res.text);
+          $('form').should.exist;
+        });
+      });
     });
 
+    it.skip('should create new client', function() {
+      const agent = chai.request.agent(app);
+      const newClient = generateClientInfo();
+
+      return agent.post('/users/login')
+      .type('form')
+      .send({
+        username: user.username, 
+        password: user.password})
+      .then((res) => {
+        return agent.post('/users/registerclient')
+        .type('form')
+        .send(newClient)
+        .then((res) => {
+          res.statusCode.should.equal(200);
+          res.type.should.equal('text/html');
+          res.should.redirect;
+          res.should.redirectTo(`${res.request.protocol}//${res.request.host}/users/clientlist`)
+        });
+      });
+    });
+    
+
+    it.skip('should render user/clientlist with clients', function() {
+      const agent = chai.request.agent(app);
+      const newClient = generateClientInfo();
+
+      return agent.post('/users/login')
+      .type('form')
+      .send({
+        username: user.username, 
+        password: user.password})
+      .then((res) => {
+        return agent.post('/users/registerclient')
+        .type('form')
+        .send(newClient)
+        .then((res) => {
+          return agent.get('/users/clientlist')
+          .then((res) => {
+            res.statusCode.should.equal(200);
+            res.type.should.equal('text/html');
+            const $ = cheerio.load(res.text);
+            $('div.client').should.exist;
+          });
+        });
+      });
+    });
   });
 
   describe('PUT endpoint', function() {
