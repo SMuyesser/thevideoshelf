@@ -199,11 +199,8 @@ describe('thevideoshelfdb tests', function() {
 
   });
 
-  describe('Post new client and get clientlist', function() {
-/*
-router.get('/editclient/:clientId', ensureAuthenticated, clientLoader, function(req, res){
-router.get('/clientlist/:clientId', clientLoader, function(req, res) {
-  */
+  describe('Client tests', function() {
+
     it.skip('should render client register form', function() {
       const agent = chai.request.agent(app);
       return agent.post('/users/login')
@@ -269,37 +266,89 @@ router.get('/clientlist/:clientId', clientLoader, function(req, res) {
         });
       });
     });
-  });
 
-  describe('PUT endpoint', function() {
-/*router.put('/clientlist/:_id', ensureAuthenticated, function(req, res) {
-*/
-    it.skip('should update fields you send over', function() {
-      const updateData = {
-        name: 'update name',
-        email: 'update email',
-        password: 'update password'
-      };
+    it.skip('should render clientpage', function(){
+      const agent = chai.request.agent(app);
+      const newClient = generateClientInfo();
 
-      return User
-        .findOne()
-        .exec()
-        .then(function(user) {
-          updateData.id = user.id;
-          return chai.request(app)
-            .put(`/manager/userlist/${user.id}`)
-            .send(updateData);
-        })
-        .then(function(res) {
-          res.should.have.status(200);
-          return User.findById(updateData.id).exec();
-        })
-        .then(function(user) {
-          user.name.should.equal(updateData.name);
-          user.email.should.equal(updateData.email);
-          user.password.should.equal(updateData.password);
+      return agent.post('/users/login')
+      .type('form')
+      .send({
+        username: user.username, 
+        password: user.password})
+      .then((res) => {
+        return agent.post('/users/registerclient')
+        .type('form')
+        .send(newClient)
+        .then((res) => {
+            return agent.get('/users/clientlist/594c27c7cca40b2f18a983b0')
+            .then((res) => {
+              res.statusCode.should.equal(200);
+              res.type.should.equal('text/html');
+              const $ = cheerio.load(res.text);
+              $('div.client-page-header').should.exist;
+            });
         });
       });
+    });
+
+    it.skip('should render edit clientpage', function(){
+      const agent = chai.request.agent(app);
+      const newClient = generateClientInfo();
+
+      return agent.post('/users/login')
+      .type('form')
+      .send({
+        username: user.username, 
+        password: user.password})
+      .then((res) => {
+        return agent.post('/users/registerclient')
+        .type('form')
+        .send(newClient)
+        .then((res) => {
+            return agent.get('/users/editclient/594c27c7cca40b2f18a983b0')
+            .then((res) => {
+              res.statusCode.should.equal(200);
+              res.type.should.equal('text/html');
+              const $ = cheerio.load(res.text);
+              $('form#js-client-update-form').should.exist;
+            });
+        });
+      });
+    });
+
+    it('should update client', function(){
+      const agent = chai.request.agent(app);
+      const newClient = generateClientInfo();
+      const updatedClient = {
+        name: "Updated Mock Client"
+      }
+
+      return agent.post('/users/login')
+      .type('form')
+      .send({
+        username: user.username, 
+        password: user.password})
+      .then((res) => {
+        return agent.post('/users/registerclient')
+        .type('form')
+        .send(newClient)
+        .then((res) => {
+            return agent.get('/users/editclient/594c27c7cca40b2f18a983b0')
+            .then((res) => {
+                console.log(res.text);
+                return agent.put('/clientlist/594c27c7cca40b2f18a983b0')
+                .send(updatedClient)
+                .then((res) => {
+                  console.log(res.text);
+                })
+            });
+        });
+      });
+    });
+
+
+
   });
 
   describe('DELETE endpoint', function() {
