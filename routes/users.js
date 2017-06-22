@@ -113,7 +113,7 @@ router.post('/register', function(req, res) {
 });
 
 // Register New Client
-router.post('/registerclient', function(req, res) {
+router.post('/registerclient', ensureAuthenticated, function(req, res) {
 	const {name, logo, videos, createdBy} = req.body;
 	// Validation
 	req.checkBody('name', 'Client name is required').notEmpty();
