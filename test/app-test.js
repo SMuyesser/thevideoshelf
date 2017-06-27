@@ -78,7 +78,7 @@ describe('thevideoshelfdb tests', function() {
 
   after(function() {
     return closeServer();
-  })
+  });
 
   describe('Logging in and out', function() {
 
@@ -175,7 +175,6 @@ describe('thevideoshelfdb tests', function() {
           res.type.should.equal('text/html');
           const $ = cheerio.load(res.text);
           $('div.user').should.exist;
-          $('div.user').length.should.equal(10);
         });
       });
     });
@@ -296,6 +295,7 @@ describe('thevideoshelfdb tests', function() {
 
   });
 });
+
 
 
 
