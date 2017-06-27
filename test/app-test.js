@@ -294,30 +294,6 @@ describe('thevideoshelfdb tests', function() {
       });
     });
 
-    it('should render edit clientpage', function(){
-      const agent = chai.request.agent(app);
-      const newClient = generateClientInfo();
-
-      return agent.post('/users/login')
-      .type('form')
-      .send({
-        username: user.username, 
-        password: user.password})
-      .then((res) => {
-        return agent.post('/users/registerclient')
-        .type('form')
-        .send(newClient)
-        .then((res) => {
-            return agent.get('/users/editclient/594c27c7cca40b2f18a983b0')
-            .then((res) => {
-              res.statusCode.should.equal(200);
-              res.type.should.equal('text/html');
-              const $ = cheerio.load(res.text);
-              $('form#js-client-update-form').should.exist;
-            });
-        });
-      });
-    });
   });
 });
 
