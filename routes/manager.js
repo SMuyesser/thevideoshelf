@@ -11,10 +11,8 @@ const Client = require('../models/clientschema');
 router.get('/userlist', managerAuthenticated, function(req, res){
 	User.find()
 	.then(function(users){
-		console.log(users);
 		Client.find()
 		.then(function(clients){
-		console.log(clients);
 				res.render('userlist', {users, clients});
 			
 		})
