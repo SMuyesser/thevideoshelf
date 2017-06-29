@@ -50,12 +50,6 @@ $(document).ready(function() {
   			return splitArr[3]
 		}
 		var videoId = getIdFromUrl(videoUrl);
-		$.getJSON(videoUrl, {
-			'id': videoId
-		}, 
-		function(response){
-			return response;
-		})
 	});
 
 })
