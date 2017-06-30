@@ -59,7 +59,7 @@ $(document).ready(function() {
 			}
 		})
 		.then((res) => {
-			$(this).before("<h3>" + res[0].title + "</h2>");
+			$(this).before("<label>" + res[0].title + "</label>");
 		})
 	});
 

@@ -10,8 +10,8 @@
 		<label>Update Logo</label>
 		<input type="text" class="form-control" placeholder="Logo" id="js-update-logo" name="updatedLogo" value="{{logo}}">
 		<div class="update-video-group">
+		<label>Update Videos Below:</label></br>
 		{{#each videos}}
-			<label>Update Video</label></br>
 			<input style="width: 87%; display: inline-block; margin-right: 2%;" type="text" class="form-control" placeholder="Enter Vimeo Video Url" value="{{this}}" id="video-{{@index}}" name="updatedVideos[]">
 			<button type="button" style="display: inline-block; width: 10%" class="btn btn-danger js-client-page-remove-vid-btn" id="{{@index}}">Remove</button></br>
 		{{/each}}
