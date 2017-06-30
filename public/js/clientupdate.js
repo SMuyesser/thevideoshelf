@@ -1,5 +1,6 @@
 $(document).ready(function() {
 
+//submit client update form with updated info and add any additional videos and then redirect to clientlist
 	$('form#js-client-update-form').on('submit', function(event){
 		event.preventDefault();
 		var clientToUpdate = $(this).children().children().closest('input').val();
@@ -35,6 +36,7 @@ $(document).ready(function() {
 		})
 	});
 
+//remove video button on edit client page which clears video url
 	$('div.update-video-group').on('click', 'button.js-client-page-remove-vid-btn', function(event){
 		const btnNumber = $(this).attr('id');
 		$(this).siblings().closest('input#video-'+btnNumber+'').val("");
@@ -50,6 +52,9 @@ $(document).ready(function() {
   			return splitArr[3]
 		}
 		var videoId = getIdFromUrl(videoUrl);
+		var vimRequest = $.ajax({
+			url: '/vimeo/info'
+		})
 	});
 
 })

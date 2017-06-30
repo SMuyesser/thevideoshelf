@@ -5,7 +5,7 @@ const mongodb = require('mongodb');
 const db = require('mongodb').Db;
 const passport = require('passport');
 const UserStrategy = require('passport-local').Strategy;
-const rp = require('request-promise');
+
 
 const User = require('../models/userschema');
 const Client = require('../models/clientschema');
@@ -69,25 +69,6 @@ router.get('/clientlist', ensureAuthenticated, function(req, res){
 // Render Edit Client
 router.get('/editclient/:clientId', ensureAuthenticated, clientLoader, function(req, res){
 	res.render('editclient', req.vsClient);
-	
-/*	var options = {
-		uri: videoUrl,
-		qs: {
-			id: videoId,
-		},
-		headers: {
-			'User-Agent': 'Request-Promise'
-		},
-		json: true
-	};
-
-	rp(options)
-	.then(function (vimeoObj) {
-		console.log(vimeoObj);
-	})
-	.catch(function (err) {
-		console.error(err);
-	});*/
 });
 
 // Get Client by id

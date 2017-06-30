@@ -1,5 +1,6 @@
 $(document).ready(function() {
 
+	//toggles text on clientlist delete button between delete and undo delete
 	$('ul.js-client-btn').on('click', 'button.js-delete-client-btn', function(event){
 		event.preventDefault();
 		$.fn.extend({
@@ -11,6 +12,7 @@ $(document).ready(function() {
 		$(this).parent().parent().parent().siblings().closest('div.delete-client').toggleClass('hidden');
 	});
 
+	//submit client delete form and redirect to clientlist
 	$('div.delete-client form#js-client-delete-form').on('submit', function(event){
 		event.preventDefault();
 		event.stopPropagation();

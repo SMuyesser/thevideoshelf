@@ -11,11 +11,13 @@ const mongo = require('mongodb');
 const MongoStore = require('connect-mongo') (session);
 const mongoose = require('mongoose');
 const morgan = require('morgan');
+const rp = require('request-promise');
 
 const {DATABASE_URL, PORT} = require('./config');
 const routes = require('./routes/index');
 const users = require('./routes/users');
 const manager = require('./routes/manager');
+const vimeo = require('./routes/vimeo');
 
 // Initialize App & use morgan
 const app = express();
@@ -86,8 +88,8 @@ app.use(function (req, res, next) {
 app.use('/', routes);
 app.use('/manager', manager);
 app.use('/users', users);
-/*app.use('/clients', clients);
-*/
+app.use('/vimeo', vimeo);
+
 mongoose.Promise = global.Promise;
 
 // closeServer needs access to a server object, but that only
