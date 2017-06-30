@@ -1,23 +1,12 @@
 const express = require('express');
-const morgan = require('morgan');
-const cors = require('cors');
 const get = require('request-promise-native');
+const parser = require('body-parser');
 const router = express.Router();
 
-
-const app = express();
-
-const Client = require('../models/clientschema');
-
-
-app.use(morgan('common'));
-app.use(cors());
-
-app.get("/info", function (request, response) {
-	if(request.query.vimeoIds) {
+router.get("/info", function (request, response) {
+	if(request.query.videoId) {
 		get({
-			url: 'https://vimeo.com/223704636',
-			q: {id: request.query.vimeoIds},
+			url: 'http://vimeo.com/api/v2/video/' + request.query.videoId + '.json',
 			json: true
 		})
 		.then((vimeoInfo) => {

@@ -82,7 +82,7 @@ describe('thevideoshelfdb tests', function() {
 
   describe('Logging in and out', function() {
 
-    it.skip('POST /users/login should not login as manager with wrong credentials', function() {
+    it('POST /users/login should not login as manager with wrong credentials', function() {
       return chai.request(app)
       .post('/users/login')
       .type('form')
@@ -95,7 +95,7 @@ describe('thevideoshelfdb tests', function() {
       })
     });
 
-    it.skip('POST /users/login should login as manager with correct credentials', function() {
+    it('POST /users/login should login as manager with correct credentials', function() {
       return chai.request.agent(app)
       .post('/users/login')
       .type('form')
@@ -108,7 +108,7 @@ describe('thevideoshelfdb tests', function() {
       })
     });
 
-    it.skip('GET /users/logout should logout', function() {
+    it('GET /users/logout should logout', function() {
       const agent = chai.request.agent(app);
       return agent.post('/users/login')
       .type('form')
@@ -132,7 +132,7 @@ describe('thevideoshelfdb tests', function() {
 
   describe('Registering new user', function(){
 
-    it.skip('GET /users/register should render user register form', function() {
+    it('GET /users/register should render user register form', function() {
       return chai.request(app)
       .get('/users/register')
       .then((res) => {
@@ -143,7 +143,7 @@ describe('thevideoshelfdb tests', function() {
       })
     });
 
-    it.skip('POST /users/register should add a new user', function() {
+    it('POST /users/register should add a new user', function() {
 
       const newUser = generateUserInfo();
 
@@ -161,7 +161,7 @@ describe('thevideoshelfdb tests', function() {
 
   describe('Manager userlist access tests', function() {
 
-    it.skip('GET /manager/userlist should return all existing users if manager', function() {
+    it('GET /manager/userlist should return all existing users if manager', function() {
       const agent = chai.request.agent(app);
       return agent.post('/users/login')
       .type('form')
@@ -179,7 +179,7 @@ describe('thevideoshelfdb tests', function() {
       });
     });
 
-    it.skip('GET /manager/userlist should not return all existing users if not manager', function() {
+    it('GET /manager/userlist should not return all existing users if not manager', function() {
       const agent = chai.request.agent(app);
       return agent.post('/users/login')
       .type('form')
@@ -201,7 +201,7 @@ describe('thevideoshelfdb tests', function() {
 
   describe('Client tests', function() {
 
-    it.skip('GET /users/registerclient should render client register form', function() {
+    it('GET /users/registerclient should render client register form', function() {
       const agent = chai.request.agent(app);
       return agent.post('/users/login')
       .type('form')
@@ -219,7 +219,7 @@ describe('thevideoshelfdb tests', function() {
       });
     });
 
-    it.skip('POST /users/registerclient should create new client', function() {
+    it('POST /users/registerclient should create new client', function() {
       const agent = chai.request.agent(app);
       const newClient = generateClientInfo();
 
@@ -241,7 +241,7 @@ describe('thevideoshelfdb tests', function() {
       });
     });
 
-    it.skip('GET /users/clientlist should render clientlist', function() {
+    it('GET /users/clientlist should render clientlist', function() {
       const agent = chai.request.agent(app);
       const newClient = generateClientInfo();
 
@@ -267,7 +267,7 @@ describe('thevideoshelfdb tests', function() {
     });
    
 
-    it.skip('GET /users/clientlist/:id should render clientpage', function(){
+    it('GET /users/clientlist/:id should render clientpage', function(){
       const agent = chai.request.agent(app);
       const newClient = generateClientInfo();
 
@@ -290,7 +290,7 @@ describe('thevideoshelfdb tests', function() {
       });
     });
 
-   it.skip('GET /users/editclient/:id should render edit client page', function() {
+   it('GET /users/editclient/:id should render edit client page', function() {
       const agent = chai.request.agent(app);
       const newClient = generateClientInfo();
 
@@ -313,7 +313,7 @@ describe('thevideoshelfdb tests', function() {
       });
     });
 
-   it.skip('PUT /users/clientlist/:id should update client', function() {
+   it('PUT /users/clientlist/:id should update client', function() {
       const agent = chai.request.agent(app);
       const newClient = generateClientInfo();
 
@@ -349,7 +349,7 @@ describe('thevideoshelfdb tests', function() {
       });
     });
 
-   it.skip('DELETE /users/clientlist/:id should delete a client', function() {
+   it('DELETE /users/clientlist/:id should delete a client', function() {
       const agent = chai.request.agent(app);
       const newClient = generateClientInfo();
 

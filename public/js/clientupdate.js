@@ -53,7 +53,13 @@ $(document).ready(function() {
 		}
 		var videoId = getIdFromUrl(videoUrl);
 		var vimRequest = $.ajax({
-			url: '/vimeo/info'
+			url: '/vimeo/info',
+			data: {
+				videoId,
+			}
+		})
+		.then((res) => {
+			$(this).before("<h3>" + res[0].title + "</h2>");
 		})
 	});
 
