@@ -23,7 +23,7 @@ const UserSchema = mongoose.Schema({
 
 
 // Model Functions
-UserSchema.pre('save', function(next) {
+/*UserSchema.pre('save', function(next) {
   const user = this;
   if (user.isModified('password')) {
     bcrypt.genSalt(10)
@@ -36,7 +36,7 @@ UserSchema.pre('save', function(next) {
   } else {
     next();
   }
-});
+});*/
 
 const User = module.exports = mongoose.model('User', UserSchema);
 
