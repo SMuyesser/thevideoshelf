@@ -43,12 +43,6 @@ button.btn {
   color: #B7BB42;
 }
 
-/* Customize container */
-@media (min-width: 768px) {
-  .container {
-    max-width: 730px;
-  }
-}
 .container-narrow > hr {
   margin: 30px 0;
 }
@@ -69,24 +63,6 @@ button.btn {
 }
 .marketing p + h4 {
   margin-top: 28px;
-}
-
-/* Responsive: Portrait tablets and up */
-@media screen and (min-width: 768px) {
-  /* Remove the padding we set earlier */
-  .header,
-  .marketing,
-  .footer {
-    padding-right: 0;
-    padding-left: 0;
-  }
-  /* Space out the masthead */
-  .header {
-  }
-  /* Remove the bottom border on the jumbotron for visual effect */
-  .jumbotron {
-    border-bottom: 0;
-  }
 }
 
 .page-header {
@@ -115,7 +91,6 @@ div.container div.row footer {
 }
 
 #js-client-update-form input {
-  width: ;
   margin-bottom: 5px;
 }
 
@@ -132,28 +107,6 @@ form label {
   display: none;
 }
 
-div.client {
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
-}
-
-div.client ul {
-  list-style: none;
-}
-
-div.client button {
-  height: 35px;
-  width: 115px;
-  margin-bottom: 2px;
-}
-
-div.client-container {
-  padding: 10px;
-  border-bottom: 2px solid #C2C2C2;
-}
-
-
 .footer {
   text-align: center;
   line-height: 2em;
@@ -169,9 +122,17 @@ nav ul.nav li a {
   color: #FFF000;
 }
 
+nav ul.nav li {
+  display: block;
+}
+
 div#vid-shelf-header-icon {
-  display: flex;
-  align-items: center;
+  display: block;
+  order: 1;
+}
+
+nav {
+  order: 2;
 }
 
 img#shelf-icon {
@@ -185,6 +146,13 @@ h3#vid-shelf-header {
   border-top: 2px solid #FFF000;
   border-bottom: 2px solid #FFF000;
   line-height: 1.4em;
+  display: inline-block;
+}
+
+div.header-order {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
 }
 
 
@@ -193,13 +161,14 @@ h3#vid-shelf-header {
 ******************************************************************/
 
 html {
-  background: url('../images/atmbackground.jpeg');
+  background: #B4B4B4;
   background-repeat: repeat-y;
 }
 
 div.background,
 body {
   background-color: #2E2E2E;
+  width: 95%;
 }
 
 
@@ -210,80 +179,105 @@ body {
 
 div.client img,
 img#update-client-img {
-  margin-right: 25px;
+  padding: auto;
+  margin-bottom: 10px;
   border: 2px solid white;
   box-shadow: 2px 2px 3px black;
+  display: inline-block;
 }
 
 div.client-list-text {
+  display: none;
+}
+
+div.client-list-text-small-detail {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   width: 50%;
 }
 
-div.client-list-text h2 {
+h2.client-list-text-small-header {
   padding: 0;
+  display: inline-block;
 }
 
-div.client-list-text p {
-  margin-bottom: 2px;
+div.client-list-text-small-detail {
+  display: block;
+  margin: 5px, auto;
 }
 
 h2.page-header {
   color: #FFF000;
 }
 
+ul.client-btn li {
+  margin-right: 5px;
+}
+
+div.client ul {
+  display: flex;
+  flex-direction: row;
+  align-content: center;
+  list-style: none;  
+  padding-left: 0;
+}
+
+div.client-container {
+  padding: 10px;
+  border-bottom: 2px solid #C2C2C2;
+}
 
 /******************************************************************
   CLIENTPAGE.HANDLEBARS
 ******************************************************************/
 
 div.client-page-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 10px;
-}
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+  }
 
-img#client-page-logo,
-h2#client-page-name {
-  display: inline-block;
-  margin-right: 20px;
-}
+  img#client-page-logo,
+  h2#client-page-name {
+    display: inline-block;
+    margin-right: 20px;
+  }
 
-img#client-page-logo {
-  border: 2px solid white;
-  box-shadow: 2px 2px 3px black;
-}
+  img#client-page-logo {
+    border: 2px solid white;
+    box-shadow: 2px 2px 3px black;
+  }
 
-div.client-page-header ul#client-page-requests {
-  float: right;
-  display: inline;
-  list-style: none;
-}
+  div.client-page-header ul#client-page-requests {
+    float: right;
+    display: inline;
+    list-style: none;
+  }
 
-ul#client-page-requests li {
-  margin-bottom: 10px;
-}
+  ul#client-page-requests li {
+    margin-bottom: 10px;
+  }
 
-ul#client-page-requests h4 {
-  color: #D2BE4C;
-}
+  ul#client-page-requests h4 {
+    color: #D2BE4C;
+  }
 
 
-ul#client-page-requests li a {
-  color: white;
-  text-decoration: none;
-}
+  ul#client-page-requests li a {
+    color: white;
+    text-decoration: none;
+  }
 
-ul#client-page-requests li a:hover {
-  color: #FFF000;
-}
+  ul#client-page-requests li a:hover {
+    color: #FFF000;
+  }
 
-iframe {
-  margin-bottom: 15px;
-  width: 100%;
-}
+  iframe {
+    margin-bottom: 15px;
+    width: 100%;
+  }
+
 
 /******************************************************************
   EDITCLIENT.HANDLEBARS
@@ -294,4 +288,106 @@ h2#update-client-name {
   display: inline-block;
   margin-bottom: 35px;
   margin-right: 5%
+}
+
+
+
+/******************************************************************
+    RESPONSIVE
+******************************************************************/
+
+@media screen and (min-width: 768px) {
+
+  /******************************************************************
+    CLIENTLIST.HANDLEBARS
+  ******************************************************************/
+
+  div.client {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+  }
+
+  div.client ul {
+    display: flex;
+    flex-direction: column;
+    list-style: none;
+  }
+
+  div.client button {
+    height: 35px;
+    width: 115px;
+    margin-bottom: 2px;
+  }
+
+  div.client-container {
+    padding: 10px;
+    border-bottom: 2px solid #C2C2C2;
+  }
+
+  div.client img,
+  img#update-client-img {
+    margin-right: 25px;
+    border: 2px solid white;
+    box-shadow: 2px 2px 3px black;
+
+  }
+
+  h2.client-list-text-small-header,
+  div.client-list-text-small-detail {
+    display: none;
+  }
+
+  div.client-list-text {
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+  }
+
+  div.client-list-text h2 {
+    padding: 0;
+  }
+
+  div.client-list-text p {
+    margin-bottom: 2px;
+  }
+
+  h2.page-header {
+    color: #FFF000;
+  }
+
+  ul.client-btn {
+  }
+
+  .header,
+  .marketing,
+  .footer {
+    padding-right: 0;
+    padding-left: 0;
+  }
+
+  /* Remove the bottom border on the jumbotron for visual effect */
+  .jumbotron {
+    border-bottom: 0;
+  }
+
+  div#vid-shelf-header-icon {
+    display: flex;
+    align-items: center;
+  }
+
+  nav ul.nav li {
+    display: inline-block;
+  }
+
+  div.header-order {
+    display: inline-block;
+  }
+}
+
+/* Customize container */
+@media (min-width: 768px) {
+  .container {
+    max-width: 730px;
+  }
 }

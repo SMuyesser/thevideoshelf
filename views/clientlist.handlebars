@@ -9,6 +9,14 @@
 				<p>Video Count: {{videos.length}}</p>
 				<p>Client Representative: {{createdBy.name}}</p>
 			</div>
+			
+			<h2 class='client-list-text-small-header'>{{name}}</h2>
+			<div class='client-list-text-small-detail'>
+				<p>Client ID: {{id}}</p>
+				<p>Video Count: {{videos.length}}</p>
+				<p>Client Representative: {{createdBy.name}}</p>
+			</div>
+			
 			<ul class="client-btn js-client-btn">
 				<li><a href="/users/clientlist/{{id}}"><button type="button" class="btn btn-success js-view-client-btn">View Client</button></a></li>
 				<li><a href="/users/editclient/{{id}}"><button type="button" class="btn btn-warning js-update-client-btn">Update Client</button></a></li>
