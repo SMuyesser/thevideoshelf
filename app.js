@@ -69,6 +69,23 @@ app.use(expressValidator({
       msg   : msg,
       value : value
     };
+  },
+  customValidators: {
+    isVimeo:  function (checkVimUrl){
+      var counter = 0;
+      checkVimUrl.forEach(function(vimUrl){
+        var vimArray = vimUrl.split('/');
+        if(vimArray[2] == 'vimeo.com') {
+          counter ++;
+        }
+        return counter;
+      });
+      if(checkVimUrl.length === counter) {
+        return true;
+      } else {
+        return false;
+      }
+    } 
   }
 }));
 

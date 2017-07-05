@@ -116,11 +116,11 @@ router.post('/register', function(req, res) {
 // Register New Client
 router.post('/registerclient', ensureAuthenticated, function(req, res) {
 	const {name, logo, videos, createdBy} = req.body;
+
 	// Validation
 	req.checkBody('name', 'Client name is required').notEmpty();
-/*	req.checkBody('videos[]', 'Must enter a vimeo video url').notEmpty();
-*/	/*req.checkBody('clientLogo', 'Client logo must be an image').isImage();*/
-
+	req.checkBody('videos', 'Must enter a vimeo video url').isVimeo();
+	
 	const errors = req.validationErrors();
 
 	// If there are errors, render the form with errors, otherwise create new client with success msg

@@ -3,6 +3,7 @@ const get = require('request-promise-native');
 const parser = require('body-parser');
 const router = express.Router();
 
+//route to get titles for videos for edit client page
 router.get("/info", function (request, response) {
 	if(request.query.videoId) {
 		get({
