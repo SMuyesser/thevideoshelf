@@ -3,7 +3,7 @@
 The Video Shelf web app was built for a friend's videography company.  His videos are all on vimeo, 
 but he needed a way to organize them on his own website.  The Video Shelf allows the user to login,
 and then register clients with their name, logo, and vimeo videos.  A client's page can then be viewed 
-to see their videos and request more filming work.  This app allows client information to updated 
+to see their videos and request more filming work.  This app allows client information to be updated 
 easily and increase productivity for the business.  
 To test it out, login with the following credentials.
 username: twhalen
@@ -14,9 +14,9 @@ Or feel free to create your own login and add your own vimeo videos.
 
 ## Screenshots
 
-   ![Client list](https://github.com/SMuyesser/thevideoshelf/blob/master/images/clientlist.png)
-   ![Client page](https://github.com/SMuyesser/thevideoshelf/blob/master/images/clientpage.png)
-   ![Edit client](https://github.com/SMuyesser/thevideoshelf/blob/master/images/editclient.png)
+   ![Client list](https://github.com/SMuyesser/thevideoshelf/blob/master/public/images/clientlist.png)
+   ![Client page](https://github.com/SMuyesser/thevideoshelf/blob/master/public/images/clientpage.png)
+   ![Edit client](https://github.com/SMuyesser/thevideoshelf/blob/master/public/images/editclient.png)
    
    
 ## Built With
