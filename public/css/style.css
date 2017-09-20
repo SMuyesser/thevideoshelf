@@ -13,7 +13,8 @@ body {
 }
 
 button.btn {
-  color: #F0F0F0;
+  color: #FFF;
+  background-color: #B5A600;
 }
 
 /* Everything but the jumbotron gets side spacing for mobile first views */
@@ -161,8 +162,9 @@ div.header-order {
 ******************************************************************/
 
 html {
-  background: #B4B4B4;
-  background-repeat: repeat-y;
+  background-image: url(../images/movie-collection.jpg);
+  background-position: center;
+  background-size: cover;
 }
 
 div.background,
