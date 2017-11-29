@@ -385,6 +385,11 @@ h2#update-client-name {
   div.header-order {
     display: inline-block;
   }
+
+  div.background,
+    body {
+      width: 65%;
+    }
 }
 
 /* Customize container */
