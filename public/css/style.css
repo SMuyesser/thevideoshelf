@@ -412,22 +412,71 @@ h2#update-client-name {
     RESPONSIVE
 ******************************************************************/
 
-@media screen and (min-width: 768px) {
+@media screen and (min-width: 480px) {
 
-  /******************************************************************
-    CLIENTLIST.HANDLEBARS
-  ******************************************************************/
+  /* Header */
+  h3#vid-shelf-header {
+    font-size: 3em;
+    height: 50px;
+    padding: 2px;
+  }
+
+  img#shelf-icon {
+    height: 50px;
+  }
+
+  div nav p {
+    font-size: 1em;
+  }
+
+  /* Nav */
+  div ul.nav li a {
+    font-size: 1em;
+  }
+
+  /* Client list */
+  div.client-list-text-small-detail {
+    font-size: 1em;
+  }
+
+  div.client ul.client-btn li button {
+    margin: auto 5px;
+  }
+
+  /* Button Size */
+  div.client ul button.client-list-btn {
+    font-size: 1em;
+  }
+
+  /* Client Page */
+  ul#client-page-requests h4 {
+    font-size: 2em;
+  }
+
+  ul#client-page-requests li{
+    font-size: 1.25em;
+    margin-bottom: 2px;
+  }
+}
+
+@media screen and (min-width: 768px) {
 
   div.client {
     display: flex;
+    flex-direction: row;
     align-items: center;
-    justify-content: space-around;
+    align-content: space-between;
   }
 
   div.client ul {
     display: flex;
     flex-direction: column;
     list-style: none;
+    margin: 0px 0px auto auto;
+  }
+
+  div.client ul li {
+    margin-bottom: 5px;
   }
 
   div.client button {
@@ -437,7 +486,8 @@ h2#update-client-name {
   }
 
   div.client-container {
-    padding: 10px;
+    padding: 10px 50px;
+    margin-bottom: 10px;
     border-bottom: 2px solid #C2C2C2;
   }
 
@@ -464,6 +514,7 @@ h2#update-client-name {
   div.client-list-text h2 {
     padding: 0;
     margin-bottom: 0px;
+    margin-top: 0px;
   }
 
   div.client-list-text p {
@@ -472,9 +523,6 @@ h2#update-client-name {
 
   h2.page-header {
     color: #FFF000;
-  }
-
-  ul.client-btn {
   }
 
   .header,
@@ -502,15 +550,9 @@ h2#update-client-name {
     display: inline-block;
   }
 
-  div.background,
-    body {
-      width: 65%;
+  div.background {
+      width: 80%;
+      max-width: 720px;
     }
 }
 
-/* Customize container */
-@media (min-width: 768px) {
-  .container {
-    max-width: 730px;
-  }
-}
