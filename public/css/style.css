@@ -7,10 +7,11 @@ html {
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
+  height: 120vh;
 }
 
 div.background {
-  background-color: #2E2E2E;
+  background-color:rgba(0, 0, 0, 0.9);
   width: 90%;
   margin: 10px auto;
   padding: 10px auto;
@@ -26,6 +27,7 @@ body {
   font-family: 'Kreon', serif;
   width: 100%;
   height: auto;
+  min-width: 320px;
 }
 
 button.btn {
@@ -33,6 +35,10 @@ button.btn {
   background-color: #B5A600;
 }
 
+div.col-lg-12 {
+  height: 75vh;
+  overflow-y: auto;
+}
 
 
 /******************************************************************
@@ -59,7 +65,6 @@ button.btn {
   line-height: 40px;
   color: white;
 }
-
 
 .container-narrow > hr {
   margin: 30px 0;
@@ -95,7 +100,7 @@ div.container div.row footer {
   min-height: 100%;  /* Fallback for browsers do NOT support vh unit */
   min-height: 100vh; /* These two lines are counted as one :-)       */
   display: flex;
-  align-items: center;
+  align-items: flex-start;
 }
 
 #js-update-client {
@@ -174,7 +179,7 @@ nav {
   flex-direction: column;
   justify-content: space-between;
   margin-bottom: 10px;
-  margin-top: 10px;
+  margin-top: 15px;
 }
 
 nav ul.nav {
@@ -206,62 +211,104 @@ div.header-order {
 
 
 
-
 /******************************************************************
   CLIENTLIST.HANDLEBARS
 ******************************************************************/
 
+div.client-container {
+  padding: 10px;
+  border-bottom: 2px solid #C2C2C2;
+  display: flex;
+  flex-direction: column;
+}
+
+div.client {
+  display: flex;
+  flex-direction: column;
+  align-content: space-around;
+  width: 100%;
+}
+
+div.client div.orientation-fix {
+  display: flex;
+  flex-direction: row;
+}
+
 div.client img,
 img#update-client-img {
   padding: auto;
-  margin-bottom: 10px;
   border: 2px solid white;
   box-shadow: 2px 2px 3px black;
   display: inline-block;
+  border-radius: 10px;
+  margin-right: 10px
+}
+
+h2.client-list-text-small-header {
+  padding: 0;
+  display: block;
+  font-size: 2em;
+  margin: 0px 0px 5px 0px;
+}
+
+div.client-list-text-small-detail {
+  width: 50%;
+  font-size: .8em;
+  margin: auto;
+  display: block;
 }
 
 div.client-list-text {
   display: none;
 }
 
-div.client-list-text-small-detail {
-  display: flex;
-  flex-direction: row;
-  width: 50%;
-}
-
-h2.client-list-text-small-header {
-  padding: 0;
-  display: inline-block;
-}
-
-div.client-list-text-small-detail {
-  display: block;
-  margin: 5px, auto;
-}
-
 h2.page-header {
   color: #FFF000;
 }
 
-ul.client-btn li {
-  margin-right: 5px;
-}
-
 div.client ul {
+  list-style: none;
+  padding: 0px;
   display: flex;
-  flex-direction: row;
-  align-content: center;
-  list-style: none;  
-  padding-left: 0;
+  margin: auto;
 }
 
-div.client-container {
-  padding: 10px;
-  border-bottom: 2px solid #C2C2C2;
-  display: flex;
-  justify-content: flex-end;
+div.client ul button {
+  font-size: .8em;
+  padding: 5px;
 }
+
+button.client-list-btn  {
+  background: #FFF000;
+  background-image: -webkit-linear-gradient(top, #FFF000, #9c9200);
+  background-image: -moz-linear-gradient(top, #FFF000, #9c9200);
+  background-image: -ms-linear-gradient(top, #FFF000, #9c9200);
+  background-image: -o-linear-gradient(top, #FFF000, #9c9200);
+  background-image: linear-gradient(to bottom, #FFF000, #9c9200);
+  -webkit-border-radius: 10;
+  -moz-border-radius: 10;
+  border-radius: 5px;
+  text-shadow: 1px 1px 3px #000000;
+  font-family: 'Kreon', serif;
+  color: #FFF;
+  padding: 5px 10px;
+  text-decoration: none;
+  margin: auto 1px;
+  border: none;
+}
+
+div.client ul button:hover {
+  background: #f2ea79;
+  background-image: -webkit-linear-gradient(top, #f2ea79, #a8a02f);
+  background-image: -moz-linear-gradient(top, #f2ea79, #a8a02f);
+  background-image: -ms-linear-gradient(top, #f2ea79, #a8a02f);
+  background-image: -o-linear-gradient(top, #f2ea79, #a8a02f);
+  background-image: linear-gradient(to bottom, #f2ea79, #a8a02f);
+  text-decoration: none;
+  cursor: pointer;
+}
+
+
 
 /******************************************************************
   CLIENTPAGE.HANDLEBARS

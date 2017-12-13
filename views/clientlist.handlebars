@@ -2,26 +2,32 @@
 {{#each clients}}
 	<div class="client-container">
 		<div class="client">
-			<img src="{{logo}}" alt="{{name}} logo" style="width: 100px; height: 100px;">
-			<div class='client-list-text'>
-				<h2>{{name}}</h2>
-				<p>Client ID: {{id}}</p>
-				<p>Video Count: {{videos.length}}</p>
-				<p>Client Representative: {{createdBy.name}}</p>
-			</div>
 			
 			<h2 class='client-list-text-small-header'>{{name}}</h2>
-			<div class='client-list-text-small-detail'>
-				<p>Client ID: {{id}}</p>
-				<p>Video Count: {{videos.length}}</p>
-				<p>Client Representative: {{createdBy.name}}</p>
+
+
+			<div class="orientation-fix">
+				<img src="{{logo}}" alt="{{name}} logo" style="width: 100px; height: 100px;">
+				<div class='client-list-text-small-detail'>
+					<p>Client ID: {{id}}</p>
+					<p>Video Count: {{videos.length}}</p>
+					<p>Client Representative: {{createdBy.name}}</p>
+				</div>
+
+				<div class='client-list-text'>
+					<h2>{{name}}</h2>
+					<p>Client ID: {{id}}</p>
+					<p>Video Count: {{videos.length}}</p>
+					<p>Client Representative: {{createdBy.name}}</p>
+				</div>
 			</div>
-			
+
 			<ul class="client-btn js-client-btn">
-				<li><a href="/users/clientlist/{{id}}"><button type="button" class="btn btn-success js-view-client-btn">View Client</button></a></li>
-				<li><a href="/users/editclient/{{id}}"><button type="button" class="btn btn-warning js-update-client-btn">Update Client</button></a></li>
-				<li><button type="button" class="btn btn-danger js-delete-client-btn">Delete Client</button></li>
-			</ul></br>
+				<li><a href="/users/clientlist/{{id}}"><button type="button" class="client-list-btn js-view-client-btn">View Client</button></a></li>
+				<li><a href="/users/editclient/{{id}}"><button type="button" class="client-list-btn  js-update-client-btn">Update Client</button></a></li>
+				<li><button type="button" class="client-list-btn js-delete-client-btn">Delete Client</button></li>
+			</ul>
+
 		</div>
 
 		<div class="delete-client hidden">
@@ -31,7 +37,7 @@
 					<label>Confirm {{name}}'s Client ID Matches Below To Delete {{name}}</label>
 				<input type="text" class="form-control" id="js-confirm-delete" value="{{id}}" readonly>
 				</div>
-				<button type="submit" class="btn btn-danger delete-btn">Confirm Delete</button>
+				<button type="submit" class="client-list-btn delete-btn">Confirm Delete</button>
 			</form>
 		</div>
 	</div>
