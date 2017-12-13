@@ -1,21 +1,43 @@
-/* Space out content a bit */
+/******************************************************************
+  BACKGROUND
+******************************************************************/
+
+html {
+  background-image: url(../images/movie-collection.jpg);
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+div.background {
+  background-color: #2E2E2E;
+  width: 90%;
+  margin: 10px auto;
+  padding: 10px auto;
+  border-radius: 15px;
+    -webkit-box-shadow: 0 5px 3px -3px #313131;
+       -moz-box-shadow: 0 5px 3px -3px #313131;
+            box-shadow: 0 5px 3px -3px #313131;
+}
+
+/* Font and Color main */
 body {
-  display: block;
-  padding-top: 20px;
-  padding-bottom: 20px;
-  width:  65%;
-  margin-left: auto;
-  margin-right: auto;
-  margin-top: 0;
-  margin-bottom: 0;
   color: #E6E2E2;
   font-family: 'Kreon', serif;
+  width: 100%;
+  height: auto;
 }
 
 button.btn {
   color: #FFF;
   background-color: #B5A600;
 }
+
+
+
+/******************************************************************
+  MISC
+******************************************************************/
 
 /* Everything but the jumbotron gets side spacing for mobile first views */
 .header,
@@ -38,11 +60,6 @@ button.btn {
   color: white;
 }
 
-/* Custom page footer */
-.footer {
-  padding-top: 19px;
-  color: #B7BB42;
-}
 
 .container-narrow > hr {
   margin: 30px 0;
@@ -71,13 +88,12 @@ button.btn {
   }
 
 div.container div.row footer {
-  margin-top: 40px;
+  margin-top: 10px;
 }
 
 .vertical-center {
   min-height: 100%;  /* Fallback for browsers do NOT support vh unit */
   min-height: 100vh; /* These two lines are counted as one :-)       */
-
   display: flex;
   align-items: center;
 }
@@ -104,13 +120,47 @@ form label {
   color: #C4BF37;
 }
 
+form label#demo-creds {
+  font-size: .8em;
+  margin: auto;
+}
+
 .form-msg .hidden {
   display: none;
 }
 
-.footer {
+
+
+/******************************************************************
+  HEAD
+******************************************************************/
+
+div#vid-shelf-header-icon {
+  display: flex;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+img#shelf-icon {
+  height: 40px;
+  display: inline;
+  margin-right: 8px;
+}
+
+h3#vid-shelf-header {
+  border-top: 2px solid #FFF000;
+  border-bottom: 2px solid #FFF000;
+  display: flex;
+  height: 40px;
+  margin: 0px auto;
+  font-size: 2em;
+  padding-top: 3px;
+}
+
+div nav p {
   text-align: center;
-  line-height: 2em;
+  font-size: .8em;
+  margin-top: 2px;
 }
 
 
@@ -119,35 +169,33 @@ form label {
   NAV
 ******************************************************************/
 
-nav ul.nav li a {
-  color: #FFF000;
+nav {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  margin-top: 10px;
 }
+
+nav ul.nav {
+  display: flex;
+  justify-content: space-between;
+  border-top: 1.5px solid #FFF000;
+  border-bottom: 1.5px solid #FFF000;
+  }
 
 nav ul.nav li {
   display: block;
 }
 
-div#vid-shelf-header-icon {
-  display: block;
-  order: 1;
+nav ul.nav li a {
+  color: #fff;
+  padding: 3px;
+  font-size: .65em;
 }
 
-nav {
-  order: 2;
-}
-
-img#shelf-icon {
-  width: 10%;
-  height: 10%;
-  display: inline;
-  margin-right: 8px;
-}
-
-h3#vid-shelf-header {
-  border-top: 2px solid #FFF000;
-  border-bottom: 2px solid #FFF000;
-  line-height: 1.4em;
-  display: inline-block;
+ul#nav-btn-color li:hover {
+  background-color: #FFF000;
 }
 
 div.header-order {
@@ -156,22 +204,6 @@ div.header-order {
   width: 100%;
 }
 
-
-/******************************************************************
-  BACKGROUND COLORS
-******************************************************************/
-
-html {
-  background-image: url(../images/movie-collection.jpg);
-  background-position: center;
-  background-size: cover;
-}
-
-div.background,
-body {
-  background-color: #2E2E2E;
-  width: 95%;
-}
 
 
 
@@ -227,6 +259,8 @@ div.client ul {
 div.client-container {
   padding: 10px;
   border-bottom: 2px solid #C2C2C2;
+  display: flex;
+  justify-content: flex-end;
 }
 
 /******************************************************************
@@ -295,6 +329,25 @@ h2#update-client-name {
 
 
 /******************************************************************
+  FOOTER
+******************************************************************/
+
+/* Custom page footer */
+.footer {
+  padding-top: 19px;
+  color: #B7BB42;
+}
+
+.footer {
+  text-align: center;
+  line-height: 2em;
+  font-size: .8em;
+}
+
+
+
+
+/******************************************************************
     RESPONSIVE
 ******************************************************************/
 
@@ -344,10 +397,12 @@ h2#update-client-name {
     display: flex;
     flex-direction: column;
     width: 50%;
+    justify-content: center;
   }
 
   div.client-list-text h2 {
     padding: 0;
+    margin-bottom: 0px;
   }
 
   div.client-list-text p {
