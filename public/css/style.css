@@ -3,7 +3,7 @@
 ******************************************************************/
 
 html {
-  background-image: url(../images/movie-collection.jpg);
+  background-image: url('../images/Video-Game-Collection.jpg');
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
@@ -554,5 +554,6 @@ h2#update-client-name {
       width: 80%;
       max-width: 720px;
     }
+
 }
 
