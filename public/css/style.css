@@ -225,7 +225,8 @@ div.client-container {
 div.client {
   display: flex;
   flex-direction: column;
-  align-content: space-around;
+  align-content: center;
+  align-items: center;
   width: 100%;
 }
 
@@ -316,26 +317,33 @@ div.client ul button:hover {
 
 div.client-page-header {
     display: flex;
-    align-items: center;
+    flex-direction: column;
     justify-content: space-between;
-    padding: 10px;
   }
 
-  img#client-page-logo,
+  div#logo-email-group {
+    display: flex;
+    justify-content: space-around;
+  }
+
   h2#client-page-name {
-    display: inline-block;
-    margin-right: 20px;
+    display: inline;
+    padding: 0px;
+    text-align: left;
+    margin-left: 0px;
   }
 
   img#client-page-logo {
     border: 2px solid white;
+    border-radius: 10px;
     box-shadow: 2px 2px 3px black;
   }
 
   div.client-page-header ul#client-page-requests {
-    float: right;
     display: inline;
     list-style: none;
+    padding-left: 0px;
+    font-size: .8em;
   }
 
   ul#client-page-requests li {
@@ -344,8 +352,8 @@ div.client-page-header {
 
   ul#client-page-requests h4 {
     color: #D2BE4C;
+    margin-top: 0px;
   }
-
 
   ul#client-page-requests li a {
     color: white;
@@ -355,10 +363,16 @@ div.client-page-header {
   ul#client-page-requests li a:hover {
     color: #FFF000;
   }
+  
+  div.vimeoVideo {
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+  }
 
   iframe {
-    margin-bottom: 15px;
-    width: 100%;
+    width: 90%;
   }
 
 

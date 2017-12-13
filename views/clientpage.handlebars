@@ -1,23 +1,23 @@
 <div class="client-page-header page-header">
-	<div id="logo-name-group">
-		<h2 id="client-page-name">{{this.name}}</h2>
+	<h2 id="client-page-name">{{this.name}}</h2>
+	<div id="logo-email-group">
 		<img id="client-page-logo" src="{{this.logo}}" alt="{{this.name}} logo" style="width: 100px; height: 100px;">
+		<ul id="client-page-requests">
+			<h4>Email Links</h4>
+			<li><a href="mailto:{{user.email}}
+					?subject={{this.name}}%20requests%20more%20filming&amp;
+					body=Hi%20I%20would%20like%20to%20request%20more%20filming%20for%20{{this.name}}">Request Further Filming</a>
+			</li>
+			<li><a href="mailto:{{user.email}}
+				?subject={{this.name}}%20requests%20a%20highlight%20reel.&amp;
+				body=Hi%20I%20would%20like%20to%20request%20a%20highlight%20reel%20for%20{{this.name}}">Request Highlight Reel</a>
+			</li>
+			<li><a href="mailto:{{user.email}}
+				?subject={{this.name}}%20requests%20DVDs&amp;
+				body=Hi%20I%20would%20like%20to%20request%20DVDs%20of%20film%20for%20{{this.name}}">Request DVD Copies</a>
+			</li>
+		</ul>
 	</div>
-	<ul id="client-page-requests">
-	<h4>Email Links</h4>
-	<li><a href="mailto:{{user.email}}
-			?subject={{this.name}}%20requests%20more%20filming&amp;
-			body=Hi%20I%20would%20like%20to%20request%20more%20filming%20for%20{{this.name}}">Request Further Filming</a>
-	</li>
-	<li><a href="mailto:{{user.email}}
-		?subject={{this.name}}%20requests%20a%20highlight%20reel.&amp;
-		body=Hi%20I%20would%20like%20to%20request%20a%20highlight%20reel%20for%20{{this.name}}">Request Highlight Reel</a>
-	</li>
-	<li><a href="mailto:{{user.email}}
-		?subject={{this.name}}%20requests%20DVDs&amp;
-		body=Hi%20I%20would%20like%20to%20request%20DVDs%20of%20film%20for%20{{this.name}}">Request DVD Copies</a>
-	</li>
-	</ul>
 </div>
 
 {{#each vimeoIds}}

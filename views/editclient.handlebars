@@ -13,12 +13,12 @@
 		<label>Update Videos Below:</label></br>
 		{{#each videos}}
 			<input style="width: 72%; display: inline-block; margin-right: 2%;" type="text" class="form-control" placeholder="Enter Vimeo Video Url" value="{{this}}" id="video-{{@index}}" name="updatedVideos[]">
-			<button type="button" style="display: inline-block; width: 70px;" class="btn btn-danger js-client-page-remove-vid-btn" id="{{@index}}">Remove</button></br>
+			<button type="button" style="display: inline-block; width: 70px;" class="client-list-btn js-client-page-remove-vid-btn" id="{{@index}}">Remove</button></br>
 		{{/each}}
 		</div>
 	</div>
-	<button type="button" class="btn btn-warning addVid-btn" id="update-add-video-btn">Add Video</button>
-	<button type="submit" class="btn btn-success update-btn">Submit</button>
+	<button type="button" class="client-list-btn addVid-btn" id="update-add-video-btn">Add Video</button>
+	<button type="submit" class="client-list-btn update-btn">Submit</button>
 </form>
 
 <script type="text/javascript" src="/js/clientupdate.js"></script>
