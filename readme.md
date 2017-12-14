@@ -14,10 +14,7 @@ Or feel free to create your own login and add your own vimeo videos.
 
 ## Screenshots
 
-   ![Client list](https://github.com/SMuyesser/thevideoshelf/blob/master/public/images/clientlist.png)
-   ![Client page](https://github.com/SMuyesser/thevideoshelf/blob/master/public/images/clientpage.png)
-   ![Edit client](https://github.com/SMuyesser/thevideoshelf/blob/master/public/images/editclient.png)
-   
+   ![Client list](https://github.com/SMuyesser/thevideoshelf/blob/master/public/images/vidshelflarge3.jpg)
    
 ## Built With
 
